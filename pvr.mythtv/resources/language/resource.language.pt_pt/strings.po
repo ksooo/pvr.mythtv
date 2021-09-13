@@ -10,10 +10,10 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/kodi-main/language/pt_PT/)\n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgctxt "#30000"
@@ -132,9 +132,18 @@ msgctxt "#30034"
 msgid "Allow recordings to expire"
 msgstr "Permitir que as gravações expirem"
 
+# empty strings from id 30035 to 30045
+msgctxt "#30046"
+msgid "Show damaged recordings as color"
+msgstr ""
+
 msgctxt "#30047"
 msgid "Prompt to delete the watched recording"
 msgstr "Avisar para eliminar a gravação vista"
+
+msgctxt "#30048"
+msgid "Show 'Original Airdate' instead of 'Recording Time'"
+msgstr ""
 
 msgctxt "#30049"
 msgid "Recording template"
@@ -204,6 +213,26 @@ msgctxt "#30065"
 msgid "Limit channel tuning attempts"
 msgstr "Limitar tentativas de sintonização"
 
+msgctxt "#30066"
+msgid "Show inactive upcomings (alternative/recorded/expired)"
+msgstr ""
+
+msgctxt "#30067"
+msgid "Show LiveTV recordings"
+msgstr ""
+
+msgctxt "#30068"
+msgid "Use bookmarks of the backend MythTV"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Show default recording group as root"
+msgstr ""
+
+msgctxt "#30070"
+msgid "Scene Only"
+msgstr ""
+
 msgctxt "#30100"
 msgid "Protocol version: %i - Database version: %i"
 msgstr "Versão do protocolo: %i - Versão da base de dados: %i"
@@ -213,8 +242,12 @@ msgid "Enabling EDL"
 msgstr "A ativar EDL"
 
 msgctxt "#30111"
-msgid "A cut list or commercial skips have been found.\nDo you want to activate EDL functionality for this show ?"
-msgstr "Foi encontrada uma lista de cortes ou omissões comerciais.\nDeseja ativar a funcionalidade EDL para este programa?"
+msgid ""
+"A cut list or commercial skips have been found.\n"
+"Do you want to activate EDL functionality for this show ?"
+msgstr ""
+"Foi encontrada uma lista de cortes ou omissões comerciais.\n"
+"Deseja ativar a funcionalidade EDL para este programa?"
 
 msgctxt "#30112"
 msgid "Connection failed"
@@ -223,6 +256,10 @@ msgstr "Falha de ligação"
 msgctxt "#30113"
 msgid "Do you want to retry ?"
 msgstr "Deseja tentar novamente?"
+
+msgctxt "#30114"
+msgid "Connected"
+msgstr ""
 
 msgctxt "#30300"
 msgid "Failed to connect the MythTV backend with the known protocol versions. Please check the compatibility map of the addon and upgrade your backend to a supported version."
@@ -284,6 +321,11 @@ msgctxt "#30412"
 msgid "Keep recording"
 msgstr "Manter a gravação"
 
+# empty strings from id 30413 to 30420
+msgctxt "#30421"
+msgid "Toggle display of alternative/recorded/expired"
+msgstr ""
+
 msgctxt "#30422"
 msgid "Refresh cache for channel icons"
 msgstr "Recarregar cache dos ícones de canal"
@@ -295,6 +337,14 @@ msgstr "Ativar atualização de canais"
 msgctxt "#30424"
 msgid "Show status of scheduling"
 msgstr "Mostrar estado do agendamento"
+
+msgctxt "#30425"
+msgid "Show status of recording"
+msgstr ""
+
+msgctxt "#30426"
+msgid "Show status of broadcast"
+msgstr ""
 
 msgctxt "#30451"
 msgid "Unhandled"
