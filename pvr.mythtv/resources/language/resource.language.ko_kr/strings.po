@@ -10,10 +10,10 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kodi Translation Team\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/projects/p/kodi-main/language/ko_KR/)\n"
+"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ko_KR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgctxt "#30000"
@@ -132,6 +132,19 @@ msgctxt "#30034"
 msgid "Allow recordings to expire"
 msgstr "녹화 만료 허용"
 
+# empty strings from id 30035 to 30045
+msgctxt "#30046"
+msgid "Show damaged recordings as color"
+msgstr ""
+
+msgctxt "#30047"
+msgid "Prompt to delete the watched recording"
+msgstr ""
+
+msgctxt "#30048"
+msgid "Show 'Original Airdate' instead of 'Recording Time'"
+msgstr ""
+
 msgctxt "#30049"
 msgid "Recording template"
 msgstr "녹화 템플릿"
@@ -139,6 +152,10 @@ msgstr "녹화 템플릿"
 msgctxt "#30050"
 msgid "Advanced"
 msgstr "고급"
+
+msgctxt "#30051"
+msgid "Preferences"
+msgstr ""
 
 msgctxt "#30052"
 msgid "Enable demuxing MPEG-TS"
@@ -196,6 +213,26 @@ msgctxt "#30065"
 msgid "Limit channel tuning attempts"
 msgstr "채널 튜닝 시도수 제한"
 
+msgctxt "#30066"
+msgid "Show inactive upcomings (alternative/recorded/expired)"
+msgstr ""
+
+msgctxt "#30067"
+msgid "Show LiveTV recordings"
+msgstr ""
+
+msgctxt "#30068"
+msgid "Use bookmarks of the backend MythTV"
+msgstr ""
+
+msgctxt "#30069"
+msgid "Show default recording group as root"
+msgstr ""
+
+msgctxt "#30070"
+msgid "Scene Only"
+msgstr ""
+
 msgctxt "#30100"
 msgid "Protocol version: %i - Database version: %i"
 msgstr "프로토콜 버전: %i - 데이터베이스 버전: %i"
@@ -205,8 +242,12 @@ msgid "Enabling EDL"
 msgstr "EDL 사용"
 
 msgctxt "#30111"
-msgid "A cut list or commercial skips have been found.\nDo you want to activate EDL functionality for this show ?"
-msgstr "컷 목록 또는 광고 건너뛰기가 발견됐습니다.\n이 쇼에 대해 EDL 기능을 사용하겠습니까?"
+msgid ""
+"A cut list or commercial skips have been found.\n"
+"Do you want to activate EDL functionality for this show ?"
+msgstr ""
+"컷 목록 또는 광고 건너뛰기가 발견됐습니다.\n"
+"이 쇼에 대해 EDL 기능을 사용하겠습니까?"
 
 msgctxt "#30112"
 msgid "Connection failed"
@@ -215,6 +256,10 @@ msgstr "연결 실패"
 msgctxt "#30113"
 msgid "Do you want to retry ?"
 msgstr "다시 시도하시겠습니까?"
+
+msgctxt "#30114"
+msgid "Connected"
+msgstr ""
 
 msgctxt "#30300"
 msgid "Failed to connect the MythTV backend with the known protocol versions. Please check the compatibility map of the addon and upgrade your backend to a supported version."
@@ -276,6 +321,11 @@ msgctxt "#30412"
 msgid "Keep recording"
 msgstr "계속 녹화"
 
+# empty strings from id 30413 to 30420
+msgctxt "#30421"
+msgid "Toggle display of alternative/recorded/expired"
+msgstr ""
+
 msgctxt "#30422"
 msgid "Refresh cache for channel icons"
 msgstr "채널 아이콘 캐시 새로 고침"
@@ -287,6 +337,14 @@ msgstr "채널 업데이트 트리거"
 msgctxt "#30424"
 msgid "Show status of scheduling"
 msgstr "예약 상태 표시"
+
+msgctxt "#30425"
+msgid "Show status of recording"
+msgstr ""
+
+msgctxt "#30426"
+msgid "Show status of broadcast"
+msgstr ""
 
 msgctxt "#30451"
 msgid "Unhandled"
@@ -311,6 +369,18 @@ msgstr "예정된 매뉴얼"
 msgctxt "#30456"
 msgid "Zombie"
 msgstr "좀비"
+
+msgctxt "#30457"
+msgid "Alternative"
+msgstr ""
+
+msgctxt "#30458"
+msgid "Currently recorded"
+msgstr ""
+
+msgctxt "#30459"
+msgid "Expired recording"
+msgstr ""
 
 msgctxt "#30460"
 msgid "Manual"
@@ -347,6 +417,10 @@ msgstr "키워드 검색"
 msgctxt "#30468"
 msgid "Search people"
 msgstr "인물 검색"
+
+msgctxt "#30469"
+msgid "Rule disabled"
+msgstr ""
 
 msgctxt "#30501"
 msgid "Don't match duplicates"
