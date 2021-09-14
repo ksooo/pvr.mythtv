@@ -1,4 +1,4 @@
-v7.3.3
+v7.3.4
 - Update translation files
 
 v7.3.1
