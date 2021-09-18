@@ -1,4 +1,5 @@
 /*
+ *  Copyright (C) 2020-2021 Jean-Luc Barrière
  *  Copyright (C) 2020 Team Kodi (https://kodi.tv)
  *
  *  SPDX-License-Identifier: GPL-2.0-or-later
