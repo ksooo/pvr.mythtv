@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: pvr.mythtv\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-09-16 06:45+0000\n"
-"Last-Translator: Christian Gade <gade@kodi.tv>\n"
+"PO-Revision-Date: 2021-09-26 14:30+0000\n"
+"Last-Translator: Klojum <klojum@kodi.tv>\n"
 "Language-Team: Dutch <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-mythtv/nl_nl/>\n"
 "Language: nl_nl\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "MythTV frontend (tot MythTV 31). Ondersteunt streaming van Live-TV &amp;
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects."
-msgstr "Dit is onstabiele software! De auteurs zijn op geen enkele wijze verantwoordelijk voor mislukte opnames, onjuiste timers, verspilde uren of andere ongewenste effecten ."
+msgstr "Dit is instabiele software! De auteurs zijn op geen enkele wijze verantwoordelijk voor mislukte opnames, onjuiste timers, verspilde uren of andere ongewenste effecten ."
 
 # Settings labels
 msgctxt "#30000"
@@ -293,7 +293,7 @@ msgstr "Niet gelukt te verbinden met MythTV server met de vertrouwde protocol ve
 
 msgctxt "#30301"
 msgid "Failed to connect the API services of MythTV backend. Please check your PIN code or backend setup. The PIN code has to be configured in your backend to allow connection."
-msgstr "Niet gelukt te verbinden met de API diensten van MythTV server. Controleer uw PIN code of server instellingen. De PIN code moet geconfigureerd zijn in uw server om verbinding toe te staan."
+msgstr "Het lukt niet om te verbinden met de API-diensten van MythTV-server. Controleer je PIN-code en serverinstellingen. De PIN-code moet geconfigureerd zijn in je server om verbinding toe te staan."
 
 msgctxt "#30302"
 msgid "Connection to MythTV backend lost"

@@ -5,16 +5,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: KODI Main\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Kodi Translation Team\n"
-"Language-Team: Korean (Korea) (http://www.transifex.com/projects/p/kodi-main/language/ko_KR/)\n"
-"Language: ko_KR\n"
+"PO-Revision-Date: 2021-09-26 14:30+0000\n"
+"Last-Translator: Minho Park <parkmino@gmail.com>\n"
+"Language-Team: Korean <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-mythtv/ko_kr/>\n"
+"Language: ko_kr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.8\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi frontend for MythTV"
@@ -26,7 +27,7 @@ msgstr "MythTV 프론트엔드 (up to MythTV 31). 라이브 TV 스트리밍, 녹
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects."
-msgstr "완성되지 않은 소프트웨어입니다. 개발자는 녹화와 예약의 실패, 시간 허비나 다른 의도하지 않은 결과에 대한 책임을 지지 않습니다. "
+msgstr "완성되지 않은 소프트웨어입니다! 개발자는 녹화와 예약의 실패, 시간 허비나 다른 의도하지 않은 결과에 대한 책임을 지지 않습니다."
 
 msgctxt "#30000"
 msgid "MythTV Backend Hostname or IP"
@@ -147,15 +148,15 @@ msgstr "녹화 만료 허용"
 # empty strings from id 30035 to 30045
 msgctxt "#30046"
 msgid "Show damaged recordings as color"
-msgstr ""
+msgstr "손상된 녹화를 색상으로 표시"
 
 msgctxt "#30047"
 msgid "Prompt to delete the watched recording"
-msgstr ""
+msgstr "시청한 녹화를 삭제할 것인지 물음"
 
 msgctxt "#30048"
 msgid "Show 'Original Airdate' instead of 'Recording Time'"
-msgstr ""
+msgstr "'녹화 시간' 대신 '본 방송일' 표시"
 
 msgctxt "#30049"
 msgid "Recording template"
@@ -167,7 +168,7 @@ msgstr "고급"
 
 msgctxt "#30051"
 msgid "Preferences"
-msgstr ""
+msgstr "기본 설정"
 
 msgctxt "#30052"
 msgid "Enable demuxing MPEG-TS"
@@ -227,23 +228,23 @@ msgstr "채널 튜닝 시도수 제한"
 
 msgctxt "#30066"
 msgid "Show inactive upcomings (alternative/recorded/expired)"
-msgstr ""
+msgstr "비활성 예정 표시(대안/녹화/만료)"
 
 msgctxt "#30067"
 msgid "Show LiveTV recordings"
-msgstr ""
+msgstr "LiveTV 녹화물 표시"
 
 msgctxt "#30068"
 msgid "Use bookmarks of the backend MythTV"
-msgstr ""
+msgstr "백엔드 MythTV의 북마크 사용"
 
 msgctxt "#30069"
 msgid "Show default recording group as root"
-msgstr ""
+msgstr "기본 녹음 그룹을 루트로 표시"
 
 msgctxt "#30070"
 msgid "Scene Only"
-msgstr ""
+msgstr "장면만"
 
 msgctxt "#30100"
 msgid "Protocol version: %i - Database version: %i"
@@ -271,7 +272,7 @@ msgstr "다시 시도하시겠습니까?"
 
 msgctxt "#30114"
 msgid "Connected"
-msgstr ""
+msgstr "연결됨"
 
 msgctxt "#30300"
 msgid "Failed to connect the MythTV backend with the known protocol versions. Please check the compatibility map of the addon and upgrade your backend to a supported version."
@@ -336,7 +337,7 @@ msgstr "계속 녹화"
 # empty strings from id 30413 to 30420
 msgctxt "#30421"
 msgid "Toggle display of alternative/recorded/expired"
-msgstr ""
+msgstr "대체/녹화/만료 표시 전환"
 
 msgctxt "#30422"
 msgid "Refresh cache for channel icons"
@@ -352,11 +353,11 @@ msgstr "예약 상태 표시"
 
 msgctxt "#30425"
 msgid "Show status of recording"
-msgstr ""
+msgstr "녹화 상태 표시"
 
 msgctxt "#30426"
 msgid "Show status of broadcast"
-msgstr ""
+msgstr "방송 상태 표시"
 
 msgctxt "#30451"
 msgid "Unhandled"
@@ -384,15 +385,15 @@ msgstr "좀비"
 
 msgctxt "#30457"
 msgid "Alternative"
-msgstr ""
+msgstr "대안"
 
 msgctxt "#30458"
 msgid "Currently recorded"
-msgstr ""
+msgstr "현재 녹화됨"
 
 msgctxt "#30459"
 msgid "Expired recording"
-msgstr ""
+msgstr "만료된 녹화"
 
 msgctxt "#30460"
 msgid "Manual"
@@ -432,7 +433,7 @@ msgstr "인물 검색"
 
 msgctxt "#30469"
 msgid "Rule disabled"
-msgstr ""
+msgstr "규칙 사용 안 함"
 
 msgctxt "#30501"
 msgid "Don't match duplicates"
