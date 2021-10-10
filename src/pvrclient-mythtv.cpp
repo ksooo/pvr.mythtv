@@ -204,6 +204,7 @@ PVR_ERROR PVRClientMythTV::GetCapabilities(kodi::addon::PVRCapabilities& capabil
   capabilities.SetHandlesDemuxing(false);
 
   capabilities.SetSupportsRecordings(true);
+  capabilities.SetSupportsRecordingsDelete(true);
   capabilities.SetSupportsRecordingsUndelete(true);
   capabilities.SetSupportsRecordingPlayCount((version < 80 ? false : true));
   capabilities.SetSupportsLastPlayedPosition((version < 88 || !CMythSettings::GetUseBackendBookmarks() ? false : true));
