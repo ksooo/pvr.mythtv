@@ -22,7 +22,7 @@ public:
 
 class TaskHandlerPrivate;
 
-class ATTRIBUTE_HIDDEN TaskHandler
+class ATTR_DLL_LOCAL TaskHandler
 {
 public:
   TaskHandler();

@@ -20,7 +20,7 @@
 
 class PVRClientMythTV;
 
-class ATTRIBUTE_HIDDEN AVInfo : public TSDemux::TSDemuxer
+class ATTR_DLL_LOCAL AVInfo : public TSDemux::TSDemuxer
 {
 public:
   AVInfo(PVRClientMythTV& client, Myth::Stream *file);

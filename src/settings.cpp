@@ -52,7 +52,7 @@ bool CMythSettings::Load()
   kodi::Log(ADDON_LOG_DEBUG, "Loading settings...");
 
   /* Read setting "host" from settings.xml */
-  if (!kodi::CheckSettingString("host", m_szMythHostname))
+  if (!kodi::addon::CheckSettingString("host", m_szMythHostname))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'host' setting, falling back to '%s' as default", DEFAULT_HOST);
@@ -60,7 +60,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "port" from settings.xml */
-  if (!kodi::CheckSettingInt("port", m_iProtoPort))
+  if (!kodi::addon::CheckSettingInt("port", m_iProtoPort))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'port' setting, falling back to '%d' as default", DEFAULT_PROTO_PORT);
@@ -68,7 +68,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "wsport" from settings.xml */
-  if (!kodi::CheckSettingInt("wsport", m_iWSApiPort))
+  if (!kodi::addon::CheckSettingInt("wsport", m_iWSApiPort))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'wsport' setting, falling back to '%d' as default", DEFAULT_WSAPI_PORT);
@@ -76,7 +76,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "wssecuritypin" from settings.xml */
-  if (!kodi::CheckSettingString("wssecuritypin", m_szWSSecurityPin))
+  if (!kodi::addon::CheckSettingString("wssecuritypin", m_szWSSecurityPin))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'wssecuritypin' setting, falling back to '%s' as default", DEFAULT_WSAPI_SECURITY_PIN);
@@ -84,7 +84,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "extradebug" from settings.xml */
-  if (!kodi::CheckSettingBoolean("extradebug", m_bExtraDebug))
+  if (!kodi::addon::CheckSettingBoolean("extradebug", m_bExtraDebug))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'extradebug' setting, falling back to '%u' as default", DEFAULT_EXTRA_DEBUG);
@@ -92,7 +92,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "LiveTV" from settings.xml */
-  if (!kodi::CheckSettingBoolean("livetv", m_bLiveTV))
+  if (!kodi::addon::CheckSettingBoolean("livetv", m_bLiveTV))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'livetv' setting, falling back to '%u' as default", DEFAULT_LIVETV);
@@ -100,7 +100,7 @@ bool CMythSettings::Load()
   }
 
   /* Read settings "Record livetv_conflict_method" from settings.xml */
-  if (!kodi::CheckSettingInt("livetv_conflict_strategy", m_iLiveTVConflictStrategy))
+  if (!kodi::addon::CheckSettingInt("livetv_conflict_strategy", m_iLiveTVConflictStrategy))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'livetv_conflict_method' setting, falling back to '%i' as default", DEFAULT_RECORD_TEMPLATE);
@@ -108,25 +108,25 @@ bool CMythSettings::Load()
   }
 
   /* Read settings "Record template" from settings.xml */
-  if (!kodi::CheckSettingInt("rec_template_provider", m_iRecTemplateType))
+  if (!kodi::addon::CheckSettingInt("rec_template_provider", m_iRecTemplateType))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'rec_template_provider' setting, falling back to '%i' as default", DEFAULT_RECORD_TEMPLATE);
     m_iRecTemplateType = DEFAULT_RECORD_TEMPLATE;
   }
   /* Get internal template settings */
-  m_bRecAutoMetadata = kodi::GetSettingBoolean("rec_autometadata", true);
-  m_bRecAutoCommFlag = kodi::GetSettingBoolean("rec_autocommflag", false);
-  m_bRecAutoTranscode = kodi::GetSettingBoolean("rec_autotranscode", false);
-  m_bRecAutoRunJob1 = kodi::GetSettingBoolean("rec_autorunjob1", false);
-  m_bRecAutoRunJob2 = kodi::GetSettingBoolean("rec_autorunjob2", false);
-  m_bRecAutoRunJob3 = kodi::GetSettingBoolean("rec_autorunjob3", false);
-  m_bRecAutoRunJob4 = kodi::GetSettingBoolean("rec_autorunjob4", false);
-  m_bRecAutoExpire = kodi::GetSettingBoolean("rec_autoexpire", false);
-  m_iRecTranscoder = kodi::GetSettingInt("rec_transcoder", 0);
+  m_bRecAutoMetadata = kodi::addon::GetSettingBoolean("rec_autometadata", true);
+  m_bRecAutoCommFlag = kodi::addon::GetSettingBoolean("rec_autocommflag", false);
+  m_bRecAutoTranscode = kodi::addon::GetSettingBoolean("rec_autotranscode", false);
+  m_bRecAutoRunJob1 = kodi::addon::GetSettingBoolean("rec_autorunjob1", false);
+  m_bRecAutoRunJob2 = kodi::addon::GetSettingBoolean("rec_autorunjob2", false);
+  m_bRecAutoRunJob3 = kodi::addon::GetSettingBoolean("rec_autorunjob3", false);
+  m_bRecAutoRunJob4 = kodi::addon::GetSettingBoolean("rec_autorunjob4", false);
+  m_bRecAutoExpire = kodi::addon::GetSettingBoolean("rec_autoexpire", false);
+  m_iRecTranscoder = kodi::addon::GetSettingInt("rec_transcoder", 0);
 
   /* Read setting "tunedelay" from settings.xml */
-  if (!kodi::CheckSettingInt("tunedelay", m_iTuneDelay))
+  if (!kodi::addon::CheckSettingInt("tunedelay", m_iTuneDelay))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'tunedelay' setting, falling back to '%d' as default", DEFAULT_TUNE_DELAY);
@@ -134,10 +134,10 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "host_ether" from settings.xml */
-  m_szMythHostEther = kodi::GetSettingString("host_ether", "");
+  m_szMythHostEther = kodi::addon::GetSettingString("host_ether", "");
 
   /* Read settings "group_recordings" from settings.xml */
-  if (!kodi::CheckSettingInt("group_recordings", m_iGroupRecordings))
+  if (!kodi::addon::CheckSettingInt("group_recordings", m_iGroupRecordings))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'group_recordings' setting, falling back to '%i' as default", GROUP_RECORDINGS_ALWAYS);
@@ -145,7 +145,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "use_airdate" from settings.xml */
-  if (!kodi::CheckSettingBoolean("use_airdate", m_bUseAirdate))
+  if (!kodi::addon::CheckSettingBoolean("use_airdate", m_bUseAirdate))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'use_airdate' setting, falling back to '%u' as default", DEFAULT_USE_AIRDATE);
@@ -153,7 +153,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "enable_edl" from settings.xml */
-  if (!kodi::CheckSettingInt("enable_edl", m_iEnableEDL))
+  if (!kodi::addon::CheckSettingInt("enable_edl", m_iEnableEDL))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'enable_edl' setting, falling back to '%i' as default", ENABLE_EDL_ALWAYS);
@@ -161,7 +161,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "allow_shutdown" from settings.xml */
-  if (!kodi::CheckSettingBoolean("allow_shutdown", m_bAllowMythShutdown))
+  if (!kodi::addon::CheckSettingBoolean("allow_shutdown", m_bAllowMythShutdown))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'allow_shutdown' setting, falling back to '%u' as default", DEFAULT_ALLOW_SHUTDOWN);
@@ -169,7 +169,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "channel_icons" from settings.xml */
-  if (!kodi::CheckSettingBoolean("channel_icons", m_bChannelIcons))
+  if (!kodi::addon::CheckSettingBoolean("channel_icons", m_bChannelIcons))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'channel_icons' setting, falling back to '%u' as default", DEFAULT_CHANNEL_ICONS);
@@ -177,7 +177,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "recording_icons" from settings.xml */
-  if (!kodi::CheckSettingBoolean("recording_icons", m_bRecordingIcons))
+  if (!kodi::addon::CheckSettingBoolean("recording_icons", m_bRecordingIcons))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'recording_icons' setting, falling back to '%u' as default", DEFAULT_RECORDING_ICONS);
@@ -185,7 +185,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "limit_tune_attempts" from settings.xml */
-  if (!kodi::CheckSettingBoolean("limit_tune_attempts", m_bLimitTuneAttempts))
+  if (!kodi::addon::CheckSettingBoolean("limit_tune_attempts", m_bLimitTuneAttempts))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'limit_tune_attempts' setting, falling back to '%u' as default", DEFAULT_LIMIT_TUNE_ATTEMPTS);
@@ -193,7 +193,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "inactive_upcomings" from settings.xml */
-  if (!kodi::CheckSettingBoolean("inactive_upcomings", m_bShowNotRecording))
+  if (!kodi::addon::CheckSettingBoolean("inactive_upcomings", m_bShowNotRecording))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'inactive_upcomings' setting, falling back to '%u' as default", DEFAULT_SHOW_NOT_RECORDING);
@@ -201,7 +201,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "prompt_delete" from settings.xml */
-  if (!kodi::CheckSettingBoolean("prompt_delete", m_bPromptDeleteAtEnd))
+  if (!kodi::addon::CheckSettingBoolean("prompt_delete", m_bPromptDeleteAtEnd))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'prompt_delete' setting, falling back to '%u' as default", DEFAULT_PROMPT_DELETE);
@@ -209,7 +209,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "livetv_recordings" from settings.xml */
-  if (!kodi::CheckSettingBoolean("livetv_recordings", m_bLiveTVRecordings))
+  if (!kodi::addon::CheckSettingBoolean("livetv_recordings", m_bLiveTVRecordings))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'livetv_recordings' setting, falling back to '%u' as default", DEFAULT_LIVETV_RECORDINGS);
@@ -217,7 +217,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "backend_bookmarks" from settings.xml */
-  if (!kodi::CheckSettingBoolean("backend_bookmarks", m_bUseBackendBookmarks))
+  if (!kodi::addon::CheckSettingBoolean("backend_bookmarks", m_bUseBackendBookmarks))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'backend_bookmarks' setting, falling back to '%u' as default", DEFAULT_BACKEND_BOOKMARKS);
@@ -225,7 +225,7 @@ bool CMythSettings::Load()
   }
 
   /* Read setting "root_default_group" from settings.xml */
-  if (!kodi::CheckSettingBoolean("root_default_group", m_bRootDefaultGroup))
+  if (!kodi::addon::CheckSettingBoolean("root_default_group", m_bRootDefaultGroup))
   {
     /* If setting is unknown fallback to defaults */
     kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'root_default_group' setting, falling back to '%u' as default", DEFAULT_ROOT_DEFAULT_GROUP);
@@ -234,7 +234,7 @@ bool CMythSettings::Load()
 
   /* Read setting "damaged_color" from settings.xml */
   std::string buffer;
-  if (kodi::CheckSettingString("damaged_color", buffer))
+  if (kodi::addon::CheckSettingString("damaged_color", buffer))
   {
     std::regex rgx("^\\[COLOR\\ .*\\](.*)\\[\\/COLOR\\]");
     std::smatch match;
@@ -257,7 +257,7 @@ bool CMythSettings::Load()
 
 ADDON_STATUS CMythSettings::SetSetting(PVRClientMythTV& client,
                                        const std::string& settingName,
-                                       const kodi::CSettingValue& settingValue)
+                                       const kodi::addon::CSettingValue& settingValue)
 {
   if (settingName == "host")
   {

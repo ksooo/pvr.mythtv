@@ -18,9 +18,9 @@ Categories::Categories()
 : m_categoriesById()
 {
   std::string filePath;
-  filePath = kodi::GetAddonPath(std::string("resources") + PATH_SEPARATOR_STRING + CATEGORIES_FILENAME);
+  filePath = kodi::addon::GetAddonPath(std::string("resources") + PATH_SEPARATOR_STRING + CATEGORIES_FILENAME);
   LoadEITCategories(filePath.c_str());
-  filePath = kodi::GetBaseUserPath(CATEGORIES_FILENAME);
+  filePath = kodi::addon::GetUserPath(CATEGORIES_FILENAME);
   LoadEITCategories(filePath.c_str());
   // Copy over
   CategoryByIdMap::const_iterator it;

@@ -18,7 +18,7 @@
 
 class PVRClientMythTV;
 
-class ATTRIBUTE_HIDDEN ArtworkManager
+class ATTR_DLL_LOCAL ArtworkManager
 {
 public:
   enum ArtworksType

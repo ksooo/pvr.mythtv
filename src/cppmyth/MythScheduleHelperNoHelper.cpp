@@ -174,7 +174,7 @@ const MythTimerType::AttributeList& MythScheduleHelperNoHelper::GetRuleDupMethod
   if (!m_dupMethodListInit)
   {
     m_dupMethodListInit = true;
-    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckNone), kodi::GetLocalizedString(30501)); // Don't match duplicates
+    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckNone), kodi::addon::GetLocalizedString(30501)); // Don't match duplicates
   }
   return m_dupMethodList;
 }
@@ -184,8 +184,8 @@ const MythScheduleHelperNoHelper::RuleExpirationMap& MythScheduleHelperNoHelper:
   if (!m_expirationMapInit)
   {
     m_expirationMapInit = true;
-    m_expirationMap.insert(std::make_pair(EXPIRATION_NEVER_EXPIRE_ID, std::make_pair(RuleExpiration(false, 0, false), kodi::GetLocalizedString(30506)))); // Allow recordings to expire
-    m_expirationMap.insert(std::make_pair(EXPIRATION_ALLOW_EXPIRE_ID, std::make_pair(RuleExpiration(true, 0, false), kodi::GetLocalizedString(30507)))); // Allow recordings to expire
+    m_expirationMap.insert(std::make_pair(EXPIRATION_NEVER_EXPIRE_ID, std::make_pair(RuleExpiration(false, 0, false), kodi::addon::GetLocalizedString(30506)))); // Allow recordings to expire
+    m_expirationMap.insert(std::make_pair(EXPIRATION_ALLOW_EXPIRE_ID, std::make_pair(RuleExpiration(true, 0, false), kodi::addon::GetLocalizedString(30507)))); // Allow recordings to expire
   }
   return m_expirationMap;
 }

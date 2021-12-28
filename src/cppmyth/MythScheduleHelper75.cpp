@@ -32,8 +32,8 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
     MythTimerType::AttributeList autoExpireList;
     int autoExpire0 = GetRuleExpirationId(RuleExpiration(false, 0, false));
     int autoExpire1 = GetRuleExpirationId(RuleExpiration(true, 0, false));
-    autoExpireList.emplace_back(autoExpire0, kodi::GetLocalizedString(30506)); // Recordings never expire
-    autoExpireList.emplace_back(autoExpire1, kodi::GetLocalizedString(30507)); // Allow recordings to expire
+    autoExpireList.emplace_back(autoExpire0, kodi::addon::GetLocalizedString(30506)); // Recordings never expire
+    autoExpireList.emplace_back(autoExpire1, kodi::addon::GetLocalizedString(30507)); // Allow recordings to expire
 
     m_timerTypeList.push_back(MythTimerTypePtr(new MythTimerType(TIMER_TYPE_MANUAL_SEARCH,
             PVR_TIMER_TYPE_IS_MANUAL |
@@ -45,7 +45,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30460), // Manual
+            kodi::addon::GetLocalizedString(30460), // Manual
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -65,7 +65,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30465), // Record this
+            kodi::addon::GetLocalizedString(30465), // Record this
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -86,7 +86,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30461), // Record one
+            kodi::addon::GetLocalizedString(30461), // Record one
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             GetRuleDupMethodList(),
@@ -109,7 +109,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30462), // Record weekly
+            kodi::addon::GetLocalizedString(30462), // Record weekly
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -133,7 +133,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30463), // Record daily
+            kodi::addon::GetLocalizedString(30463), // Record daily
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             GetRuleDupMethodList(),
@@ -154,7 +154,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30464), // Record all
+            kodi::addon::GetLocalizedString(30464), // Record all
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             GetRuleDupMethodList(),
@@ -173,7 +173,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30466), // Record series
+            kodi::addon::GetLocalizedString(30466), // Record series
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             GetRuleDupMethodList(),
@@ -194,7 +194,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30467), // Search keyword
+            kodi::addon::GetLocalizedString(30467), // Search keyword
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             GetRuleDupMethodList(),
@@ -215,7 +215,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30468), // Search people
+            kodi::addon::GetLocalizedString(30468), // Search people
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             GetRuleDupMethodList(),
@@ -234,7 +234,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30451), // Unhandled
+            kodi::addon::GetLocalizedString(30451), // Unhandled
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             GetRuleDupMethodList(),
@@ -251,7 +251,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30469), // Rule Disabled
+            kodi::addon::GetLocalizedString(30469), // Rule Disabled
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -268,7 +268,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30452), // Upcoming
+            kodi::addon::GetLocalizedString(30452), // Upcoming
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -285,7 +285,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30457), // Alternative
+            kodi::addon::GetLocalizedString(30457), // Alternative
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -302,7 +302,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30458), // Currently recorded
+            kodi::addon::GetLocalizedString(30458), // Currently recorded
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -319,7 +319,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30459), // Expired recording
+            kodi::addon::GetLocalizedString(30459), // Expired recording
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -336,7 +336,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_PRIORITY |
             PVR_TIMER_TYPE_SUPPORTS_LIFETIME |
             PVR_TIMER_TYPE_SUPPORTS_RECORDING_GROUP,
-            kodi::GetLocalizedString(30453), // Overriden
+            kodi::addon::GetLocalizedString(30453), // Overriden
             GetRulePriorityList(),
             GetRulePriorityDefaultId(),
             emptyList,
@@ -352,7 +352,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
             PVR_TIMER_TYPE_SUPPORTS_CHANNELS |
             PVR_TIMER_TYPE_SUPPORTS_START_TIME |
             PVR_TIMER_TYPE_SUPPORTS_END_TIME,
-            kodi::GetLocalizedString(30454), // Don't record
+            kodi::addon::GetLocalizedString(30454), // Don't record
             emptyList,
             0, // n&v
             emptyList,
@@ -364,7 +364,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
 
     m_timerTypeList.push_back(MythTimerTypePtr(new MythTimerType(TIMER_TYPE_UPCOMING_MANUAL,
             PVR_TIMER_TYPE_IS_READONLY,
-            kodi::GetLocalizedString(30455), // Upcoming manual
+            kodi::addon::GetLocalizedString(30455), // Upcoming manual
             emptyList,
             0, // n&v
             emptyList,
@@ -376,7 +376,7 @@ MythTimerTypeList MythScheduleHelper75::GetTimerTypes() const
 
     m_timerTypeList.push_back(MythTimerTypePtr(new MythTimerType(TIMER_TYPE_ZOMBIE,
             PVR_TIMER_TYPE_IS_READONLY,
-            kodi::GetLocalizedString(30456), // Zombie
+            kodi::addon::GetLocalizedString(30456), // Zombie
             emptyList,
             0, // n&v
             emptyList,
@@ -1341,11 +1341,11 @@ const MythTimerType::AttributeList& MythScheduleHelper75::GetRuleDupMethodList()
   if (!m_dupMethodListInit)
   {
     m_dupMethodListInit = true;
-    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckNone), kodi::GetLocalizedString(30501));
-    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckSubtitle), kodi::GetLocalizedString(30502));
-    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckDescription), kodi::GetLocalizedString(30503));
-    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckSubtitleAndDescription), kodi::GetLocalizedString(30504));
-    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckSubtitleThenDescription), kodi::GetLocalizedString(30505));
+    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckNone), kodi::addon::GetLocalizedString(30501));
+    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckSubtitle), kodi::addon::GetLocalizedString(30502));
+    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckDescription), kodi::addon::GetLocalizedString(30503));
+    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckSubtitleAndDescription), kodi::addon::GetLocalizedString(30504));
+    m_dupMethodList.emplace_back(static_cast<int>(Myth::DM_CheckSubtitleThenDescription), kodi::addon::GetLocalizedString(30505));
   }
   return m_dupMethodList;
 }
@@ -1362,19 +1362,19 @@ const MythScheduleHelperNoHelper::RuleExpirationMap& MythScheduleHelper75::GetRu
     int index = (EXPIRATION_NEVER_EXPIRE_ID < EXPIRATION_ALLOW_EXPIRE_ID ? EXPIRATION_NEVER_EXPIRE_ID : EXPIRATION_ALLOW_EXPIRE_ID) - 100;
     for (int i = 100; i >= 1; --i)
     {
-      snprintf(buf, sizeof(buf), kodi::GetLocalizedString(30509).c_str(), i); // Keep %d newest and expire old
+      snprintf(buf, sizeof(buf), kodi::addon::GetLocalizedString(30509).c_str(), i); // Keep %d newest and expire old
       m_expirationMap.insert(std::make_pair(index++, std::make_pair(RuleExpiration(false,i,true), buf)));
     }
 
     // Insert cases 'auto expire'
-    m_expirationMap.insert(std::make_pair(EXPIRATION_NEVER_EXPIRE_ID, std::make_pair(RuleExpiration(false, 0, false), kodi::GetLocalizedString(30506)))); // Recordings never expire
-    m_expirationMap.insert(std::make_pair(EXPIRATION_ALLOW_EXPIRE_ID, std::make_pair(RuleExpiration(true, 0, false), kodi::GetLocalizedString(30507)))); // Allow recordings to expire
+    m_expirationMap.insert(std::make_pair(EXPIRATION_NEVER_EXPIRE_ID, std::make_pair(RuleExpiration(false, 0, false), kodi::addon::GetLocalizedString(30506)))); // Recordings never expire
+    m_expirationMap.insert(std::make_pair(EXPIRATION_ALLOW_EXPIRE_ID, std::make_pair(RuleExpiration(true, 0, false), kodi::addon::GetLocalizedString(30507)))); // Allow recordings to expire
 
     // Insert cases 'keep up'
     index = (EXPIRATION_ALLOW_EXPIRE_ID > EXPIRATION_NEVER_EXPIRE_ID ? EXPIRATION_ALLOW_EXPIRE_ID : EXPIRATION_NEVER_EXPIRE_ID) + 1;
     for (int i = 2; i <= 100; ++i)
     {
-      snprintf(buf, sizeof(buf), kodi::GetLocalizedString(30508).c_str(), i); // Keep up to %d recordings
+      snprintf(buf, sizeof(buf), kodi::addon::GetLocalizedString(30508).c_str(), i); // Keep up to %d recordings
       m_expirationMap.insert(std::make_pair(index++, std::make_pair(RuleExpiration(false,i,false), buf)));
     }
   }

@@ -16,7 +16,7 @@
 typedef std::multimap<int, std::string> CategoryByIdMap;
 typedef std::map<std::string, int> CategoryByNameMap;
 
-class ATTRIBUTE_HIDDEN Categories
+class ATTR_DLL_LOCAL Categories
 {
 public:
   Categories();

@@ -11,20 +11,17 @@
 #include "pvrclient-mythtv.h"
 
 ADDON_STATUS CPVRMythTVAddon::SetSetting(const std::string& settingName,
-                                              const kodi::CSettingValue& settingValue)
+                                              const kodi::addon::CSettingValue& settingValue)
 {
   if (m_client)
     return m_settings.SetSetting(*m_client, settingName, settingValue);
   return ADDON_STATUS_UNKNOWN;
 }
 
-ADDON_STATUS CPVRMythTVAddon::CreateInstance(int instanceType,
-                                             const std::string& instanceID,
-                                             KODI_HANDLE instance,
-                                             const std::string& version,
-                                             KODI_HANDLE& addonInstance)
+ADDON_STATUS CPVRMythTVAddon::CreateInstance(const kodi::addon::IInstanceInfo& instance,
+                                             KODI_ADDON_INSTANCE_HDL& hdl)
 {
-  if (instanceType == ADDON_INSTANCE_PVR)
+  if (instance.IsType(ADDON_INSTANCE_PVR))
   {
     kodi::Log(ADDON_LOG_INFO, "Creating MythTV PVR-Client");
     kodi::Log(ADDON_LOG_INFO, "Addon compiled with PVR API version %s", STR(ADDON_INSTANCE_VERSION_PVR));
@@ -37,12 +34,12 @@ ADDON_STATUS CPVRMythTVAddon::CreateInstance(int instanceType,
 
     m_settings.Load();
 
-    m_client = new PVRClientMythTV(instance, version);
+    m_client = new PVRClientMythTV(instance);
     m_launcher = new PVRClientLauncher(m_client);
 
     if (m_launcher->Start())
     {
-      addonInstance = m_client;
+      hdl = m_client;
       kodi::Log(ADDON_LOG_INFO, "Addon started successfully");
       return ADDON_STATUS_OK;
     }
@@ -60,11 +57,10 @@ ADDON_STATUS CPVRMythTVAddon::CreateInstance(int instanceType,
   return ADDON_STATUS_UNKNOWN;
 }
 
-void CPVRMythTVAddon::DestroyInstance(int instanceType,
-                                      const std::string& instanceID,
-                                      KODI_HANDLE addonInstance)
+void CPVRMythTVAddon::DestroyInstance(const kodi::addon::IInstanceInfo& instance,
+                                      const KODI_ADDON_INSTANCE_HDL hdl)
 {
-  if (instanceType == ADDON_INSTANCE_PVR)
+  if (instance.IsType(ADDON_INSTANCE_PVR))
   {
     delete m_launcher;
     m_launcher = nullptr;

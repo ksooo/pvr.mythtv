@@ -12,7 +12,7 @@
 
 #include <kodi/General.h>
 
-class ATTRIBUTE_HIDDEN PVRClientLauncherPrivate : private Myth::OS::CThread
+class ATTR_DLL_LOCAL PVRClientLauncherPrivate : private Myth::OS::CThread
 {
 public:
   PVRClientLauncherPrivate(PVRClientMythTV* client);
@@ -92,14 +92,14 @@ void* PVRClientLauncherPrivate::Process()
       m_client->GetBackendVersion(version);
       m_client->ConnectionStateChange(name, PVR_CONNECTION_STATE_CONNECTED, version);
       /* Read setting "LiveTV Priority" from backend database */
-      bool savedLiveTVPriority = kodi::GetSettingBoolean("livetv_priority", DEFAULT_LIVETV_PRIORITY);
+      bool savedLiveTVPriority = kodi::addon::GetSettingBoolean("livetv_priority", DEFAULT_LIVETV_PRIORITY);
       CMythSettings::SetLiveTVPriority(m_client->GetLiveTVPriority());
       if (CMythSettings::GetLiveTVPriority() != savedLiveTVPriority)
         m_client->SetLiveTVPriority(savedLiveTVPriority);
       /* End of process */
 
       // Connected.
-      std::string msg = kodi::GetLocalizedString(30114);
+      std::string msg = kodi::addon::GetLocalizedString(30114);
       kodi::QueueNotification(QUEUE_INFO, "", msg);
 
       break;
@@ -111,19 +111,19 @@ void* PVRClientLauncherPrivate::Process()
       if (error == PVRClientMythTV::CONN_ERROR_UNKNOWN_VERSION)
       {
         // Failed to connect the MythTV backend with the known protocol versions.
-        std::string msg = kodi::GetLocalizedString(30300);
+        std::string msg = kodi::addon::GetLocalizedString(30300);
         kodi::QueueNotification(QUEUE_ERROR, "", msg);
       }
       else if (error == PVRClientMythTV::CONN_ERROR_API_UNAVAILABLE)
       {
         // Failed to connect the API services of MythTV backend. Please check your PIN code or backend setup.
-        std::string msg = kodi::GetLocalizedString(30301);
+        std::string msg = kodi::addon::GetLocalizedString(30301);
         kodi::QueueNotification(QUEUE_ERROR, "", msg);
       }
       else
       {
         // No response from MythTV backend.
-        std::string msg = kodi::GetLocalizedString(30304);
+        std::string msg = kodi::addon::GetLocalizedString(30304);
         kodi::QueueNotification(QUEUE_WARNING, "", msg);
       }
       // No longer notify the failure

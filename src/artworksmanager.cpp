@@ -31,7 +31,7 @@ std::string ArtworkManager::GetChannelIconPath(const MythChannel& channel)
   if (channel.IsNull() || channel.Icon().empty())
     return "";
   if (!CMythSettings::GetChannelIcons())
-    return kodi::GetAddonPath() + PATH_SEPARATOR_STRING + "resources" + PATH_SEPARATOR_STRING + FILEOPS_CHANNEL_DUMMY_ICON;
+    return kodi::addon::GetAddonPath() + PATH_SEPARATOR_STRING + "resources" + PATH_SEPARATOR_STRING + FILEOPS_CHANNEL_DUMMY_ICON;
 
   return m_wsapi->GetChannelIconUrl(channel.ID(), CHANNEL_ICON_WIDTH);
 }
@@ -41,7 +41,7 @@ std::string ArtworkManager::GetPreviewIconPath(const MythProgramInfo& recording)
   if (recording.IsNull())
     return "";
   if (!CMythSettings::GetRecordingIcons())
-    return kodi::GetAddonPath() + PATH_SEPARATOR_STRING + "resources" + PATH_SEPARATOR_STRING + FILEOPS_RECORDING_DUMMY_ICON;
+    return kodi::addon::GetAddonPath() + PATH_SEPARATOR_STRING + "resources" + PATH_SEPARATOR_STRING + FILEOPS_RECORDING_DUMMY_ICON;
 
   return m_wsapi->GetPreviewImageUrl(recording.ChannelID(), recording.RecordingStartTime());
 }
@@ -54,7 +54,7 @@ std::string ArtworkManager::GetArtworkPath(const MythProgramInfo& recording, Art
     switch (type)
     {
     case AWTypeCoverart:
-      return kodi::GetAddonPath() + PATH_SEPARATOR_STRING + "resources" + PATH_SEPARATOR_STRING + FILEOPS_RECORDING_DUMMY_ICON;
+      return kodi::addon::GetAddonPath() + PATH_SEPARATOR_STRING + "resources" + PATH_SEPARATOR_STRING + FILEOPS_RECORDING_DUMMY_ICON;
     default:
       return "";
     }
