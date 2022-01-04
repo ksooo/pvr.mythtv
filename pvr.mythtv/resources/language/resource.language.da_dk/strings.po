@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pvr.mythtv\n"
-"Report-Msgid-Bugs-To: http://trac.kodi.tv/\n"
+"Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2021-10-25 15:07+0000\n"
+"PO-Revision-Date: 2021-11-14 14:13+0000\n"
 "Last-Translator: Christian Gade <gade@kodi.tv>\n"
 "Language-Team: Danish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-mythtv/da_dk/>\n"
 "Language: da_dk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.9\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi frontend for MythTV"
@@ -25,7 +25,7 @@ msgstr "Kodi frontend til MythTV"
 
 msgctxt "Addon Description"
 msgid "MythTV frontend (up to MythTV 31). Supports streaming of Live TV & Recordings, listening to Radio channels, EPG and Timers."
-msgstr "MythTV frontend (op til MythTV 31). Understøtter streaming af direkte tv & optagelser, radiokanaler, EPG samt timeroptagelser."
+msgstr "MythTV frontend (op til MythTV 31). Understøtter streaming af direkte tv og optagelser, radiokanaler, EPG samt timeroptagelser."
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects."
@@ -292,7 +292,7 @@ msgstr "Kunne ikke forbinde til MythTV backend med den aktuelle protokolversion.
 
 msgctxt "#30301"
 msgid "Failed to connect the API services of MythTV backend. Please check your PIN code or backend setup. The PIN code has to be configured in your backend to allow connection."
-msgstr "Kunne ikke forbinde til MythTV backend API service. Tjek venligst din PIN kode eller backend opsætning. PIN koden skal være opsat i backenden for at tillade forbindelse."
+msgstr "Kunne ikke forbinde til MythTV backend API-tjeneste. Tjek venligst din PIN-kode eller backend-opsætning. PIN-koden skal være opsat i backenden for at tillade forbindelse."
 
 msgctxt "#30302"
 msgid "Connection to MythTV backend lost"
@@ -355,7 +355,7 @@ msgstr "Skift visning af alternativ/optaget/udløbet"
 
 msgctxt "#30422"
 msgid "Refresh cache for channel icons"
-msgstr "Opdatér kanal ikoner"
+msgstr "Opdater cachen for kanalikoner"
 
 msgctxt "#30423"
 msgid "Trigger channels update"
@@ -453,23 +453,23 @@ msgstr "Regel deaktiveret"
 # empty strings from id 30470 to 30500
 msgctxt "#30501"
 msgid "Don't match duplicates"
-msgstr "Identificér ikke dubletter"
+msgstr "Match ikke dubletter"
 
 msgctxt "#30502"
 msgid "Match duplicates using subtitle"
-msgstr "Identificér dubletter ved hjælp af undertitel"
+msgstr "Match dubletter ved hjælp af undertitel"
 
 msgctxt "#30503"
 msgid "Match duplicates using description"
-msgstr "Identificér dubletter ved hjælp af beskrivelse"
+msgstr "Match dubletter ved hjælp af beskrivelse"
 
 msgctxt "#30504"
 msgid "Match duplicates using subtitle & description"
-msgstr "Identificér dubletter ved hjælp af undertitel & beskrivelse"
+msgstr "Match dubletter ved hjælp af undertitel og beskrivelse"
 
 msgctxt "#30505"
 msgid "Match duplicates using subtitle then description"
-msgstr "Identificér dubletter ved hjælp af undertitel, derefter beskrivelse"
+msgstr "Match dubletter ved hjælp af undertitel, derefter beskrivelse"
 
 msgctxt "#30506"
 msgid "Recordings never expire"
