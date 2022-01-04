@@ -18,7 +18,7 @@ void AVInfoLog(int level, char *msg)
   if (msg && level != DEMUX_DBG_NONE)
   {
     bool doLog = CMythSettings::GetExtraDebug();
-    AddonLog loglevel = ADDON_LOG_DEBUG;
+    ADDON_LOG loglevel = ADDON_LOG_DEBUG;
     switch (level)
     {
     case DEMUX_DBG_ERROR:

@@ -14,7 +14,7 @@
 
 class PVRClientLauncherPrivate;
 
-class ATTRIBUTE_HIDDEN PVRClientLauncher
+class ATTR_DLL_LOCAL PVRClientLauncher
 {
 public:
   PVRClientLauncher(PVRClientMythTV* client);

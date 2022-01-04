@@ -24,8 +24,8 @@
 
 #define SEEK_POSSIBLE 0x10 ///< flag used to check if protocol allows seeks
 
-PVRClientMythTV::PVRClientMythTV(KODI_HANDLE instance, const std::string& version)
-: kodi::addon::CInstancePVRClient(instance, version)
+PVRClientMythTV::PVRClientMythTV(const kodi::addon::IInstanceInfo& instance)
+: kodi::addon::CInstancePVRClient(instance)
 , m_connectionError(CONN_ERROR_NOT_CONNECTED)
 , m_eventHandler(NULL)
 , m_control(NULL)
@@ -81,7 +81,7 @@ static void Log(int level, char *msg)
   if (msg && level != MYTH_DBG_NONE)
   {
     bool doLog = true; //CMythSettings::GetExtraDebug();
-    AddonLog loglevel = ADDON_LOG_DEBUG;
+    ADDON_LOG loglevel = ADDON_LOG_DEBUG;
     switch (level)
     {
     case MYTH_DBG_ERROR:
@@ -340,7 +340,7 @@ void PVRClientMythTV::HandleBackendMessage(Myth::EventMessagePtr msg)
           m_scheduleManager->CloseControl();
         // notify the user when the screen is activated
         if (!m_powerSaving)
-          kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30302)); // Connection to MythTV backend lost
+          kodi::QueueNotification(QUEUE_ERROR, "", kodi::addon::GetLocalizedString(30302)); // Connection to MythTV backend lost
       }
       else if (msg->subject[0] == EVENTHANDLER_CONNECTED)
       {
@@ -353,7 +353,7 @@ void PVRClientMythTV::HandleBackendMessage(Myth::EventMessagePtr msg)
           m_hang = false;
           // notify the user when the screen is activated
           if (!m_powerSaving)
-            kodi::QueueNotification(QUEUE_INFO, "", kodi::GetLocalizedString(30303)); // Connection to MythTV restored
+            kodi::QueueNotification(QUEUE_INFO, "", kodi::addon::GetLocalizedString(30303)); // Connection to MythTV restored
           // still in mode power saving I have to allow shutdown again
           if (m_powerSaving && CMythSettings::GetAllowMythShutdown())
             AllowBackendShutdown();
@@ -422,12 +422,12 @@ void PVRClientMythTV::HandleAskRecording(const Myth::EventMessage& msg)
     if (CMythSettings::GetLiveTVConflictStrategy() == LIVETV_CONFLICT_STRATEGY_CANCELREC ||
       (CMythSettings::GetLiveTVConflictStrategy() == LIVETV_CONFLICT_STRATEGY_HASLATER && haslater))
     {
-      kodi::QueueFormattedNotification(QUEUE_WARNING, kodi::GetLocalizedString(30307).c_str(), title.c_str()); // Canceling conflicting recording: %s
+      kodi::QueueFormattedNotification(QUEUE_WARNING, kodi::addon::GetLocalizedString(30307).c_str(), title.c_str()); // Canceling conflicting recording: %s
       m_control->CancelNextRecording((int)cardid, true);
     }
     else // LIVETV_CONFLICT_STRATEGY_STOPTV
     {
-      kodi::QueueFormattedNotification(QUEUE_WARNING, kodi::GetLocalizedString(30308).c_str(), title.c_str()); // Stopping Live TV due to conflicting recording: %s
+      kodi::QueueFormattedNotification(QUEUE_WARNING, kodi::addon::GetLocalizedString(30308).c_str(), title.c_str()); // Stopping Live TV due to conflicting recording: %s
       m_stopTV = true; // that will close live stream as soon as possible
     }
   }
@@ -557,9 +557,9 @@ void PVRClientMythTV::PromptDeleteRecording(const MythProgramInfo &prog)
   if (IsPlaying() || prog.IsNull())
     return;
   std::string dispTitle = MakeProgramTitle(prog.Title(), prog.Subtitle());
-  if (kodi::gui::dialogs::YesNo::ShowAndGetInput(kodi::GetLocalizedString(122),
-          kodi::GetLocalizedString(19112), "", dispTitle,
-          "", kodi::GetLocalizedString(117)))
+  if (kodi::gui::dialogs::YesNo::ShowAndGetInput(kodi::addon::GetLocalizedString(122),
+          kodi::addon::GetLocalizedString(19112), "", dispTitle,
+          "", kodi::addon::GetLocalizedString(117)))
   {
     if (m_control->DeleteRecording(*(prog.GetPtr())))
       kodi::Log(ADDON_LOG_DEBUG, "%s: Deleted recording %s", __FUNCTION__, prog.UID().c_str());
@@ -1329,7 +1329,7 @@ PVR_ERROR PVRClientMythTV::DeleteAndForgetRecording(const kodi::addon::PVRRecord
   return PVR_ERROR_FAILED;
 }
 
-class ATTRIBUTE_HIDDEN PromptDeleteRecordingTask : public Task
+class ATTR_DLL_LOCAL PromptDeleteRecordingTask : public Task
 {
 public:
   PromptDeleteRecordingTask(PVRClientMythTV* pvr, const MythProgramInfo& prog)
@@ -1538,7 +1538,7 @@ PVR_ERROR PVRClientMythTV::GetRecordingEdl(const kodi::addon::PVRRecording& reco
   if (CMythSettings::GetEnableEDL() == ENABLE_EDL_DIALOG && !skpList.empty())
   {
     bool canceled = false;
-    if (!kodi::gui::dialogs::YesNo::ShowAndGetInput(kodi::GetLocalizedString(30110), kodi::GetLocalizedString(30111), canceled) && !canceled)
+    if (!kodi::gui::dialogs::YesNo::ShowAndGetInput(kodi::addon::GetLocalizedString(30110), kodi::addon::GetLocalizedString(30111), canceled) && !canceled)
       return PVR_ERROR_NO_ERROR;
   }
 
@@ -2233,7 +2233,7 @@ bool PVRClientMythTV::OpenLiveStream(const kodi::addon::PVRChannel& channel)
   }
   delete m_dummyStream;
   m_dummyStream = nullptr;
-  kodi::QueueNotification(QUEUE_WARNING, "", kodi::GetLocalizedString(30305)); // Channel unavailable
+  kodi::QueueNotification(QUEUE_WARNING, "", kodi::addon::GetLocalizedString(30305)); // Channel unavailable
   return false;
 }
 
@@ -2448,7 +2448,7 @@ bool PVRClientMythTV::OpenRecordedStream(const kodi::addon::PVRRecording& record
     // Request the stream from our master using the opened event handler.
     m_recordingStream = new Myth::RecordingPlayback(*m_eventHandler);
     if (!m_recordingStream->IsOpen())
-      kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30302)); // MythTV backend unavailable
+      kodi::QueueNotification(QUEUE_ERROR, "", kodi::addon::GetLocalizedString(30302)); // MythTV backend unavailable
     else if (m_recordingStream->OpenTransfer(prog.GetPtr()))
     {
       m_recordingStreamInfo = prog;
@@ -2496,7 +2496,7 @@ bool PVRClientMythTV::OpenRecordedStream(const kodi::addon::PVRRecording& record
     kodi::Log(ADDON_LOG_INFO, "%s: Connect to remote backend %s:%u", __FUNCTION__, backend_addr.c_str(), backend_port);
     m_recordingStream = new Myth::RecordingPlayback(backend_addr, backend_port);
     if (!m_recordingStream->IsOpen())
-      kodi::QueueNotification(QUEUE_ERROR, "", kodi::GetLocalizedString(30304)); // No response from MythTV backend
+      kodi::QueueNotification(QUEUE_ERROR, "", kodi::addon::GetLocalizedString(30304)); // No response from MythTV backend
     else if (m_recordingStream->OpenTransfer(prog.GetPtr()))
     {
       m_recordingStreamInfo = prog;
@@ -2638,7 +2638,7 @@ PVR_ERROR PVRClientMythTV::CallEPGMenuHook(const kodi::addon::PVRMenuhook& menuh
   }
   else
   {
-    kodi::QueueNotification(QUEUE_WARNING, "", kodi::GetLocalizedString(30312));
+    kodi::QueueNotification(QUEUE_WARNING, "", kodi::addon::GetLocalizedString(30312));
     kodi::Log(ADDON_LOG_DEBUG, "%s: EPG program not found (%d) chanid: %u attime: %lu", __FUNCTION__, tag.GetUniqueBroadcastId(), chanid, attime);
     return PVR_ERROR_INVALID_PARAMETERS;
   }
@@ -2675,7 +2675,7 @@ PVR_ERROR PVRClientMythTV::CallRecordingMenuHook(const kodi::addon::PVRMenuhook&
     {
       if (m_control->UndeleteRecording(*(it->second.GetPtr())))
       {
-        std::string info = kodi::GetLocalizedString(menuhook.GetLocalizedStringId());
+        std::string info = kodi::addon::GetLocalizedString(menuhook.GetLocalizedStringId());
         info.append(": ").append(it->second.Title());
         kodi::QueueNotification(QUEUE_INFO, "", info);
         return PVR_ERROR_NO_ERROR;
@@ -2792,9 +2792,9 @@ PVR_ERROR PVRClientMythTV::CallTimerMenuHook(const kodi::addon::PVRMenuhook& men
   {
     bool flag = m_scheduleManager->ToggleShowNotRecording();
     HandleScheduleChange();
-    std::string info = (flag ? kodi::GetLocalizedString(30310) : kodi::GetLocalizedString(30311)); //Enabled / Disabled
+    std::string info = (flag ? kodi::addon::GetLocalizedString(30310) : kodi::addon::GetLocalizedString(30311)); //Enabled / Disabled
     info += ": ";
-    info += kodi::GetLocalizedString(30421); //Show/hide rules with status 'Not Recording'
+    info += kodi::addon::GetLocalizedString(30421); //Show/hide rules with status 'Not Recording'
     kodi::QueueNotification(QUEUE_INFO, "", info);
     return PVR_ERROR_NO_ERROR;
   }

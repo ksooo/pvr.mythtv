@@ -60,7 +60,7 @@ public:
   CMythSettings() = default;
 
   bool Load();
-  ADDON_STATUS SetSetting(PVRClientMythTV& client, const std::string& settingName, const kodi::CSettingValue& settingValue);
+  ADDON_STATUS SetSetting(PVRClientMythTV& client, const std::string& settingName, const kodi::addon::CSettingValue& settingValue);
 
   static bool GetExtraDebug() { return m_bExtraDebug; }
   static const std::string& GetMythHostname() { return m_szMythHostname; }

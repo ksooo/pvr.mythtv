@@ -12,7 +12,7 @@
 
 #include <mythstream.h>
 
-class ATTRIBUTE_HIDDEN FileStreaming : public Myth::Stream
+class ATTR_DLL_LOCAL FileStreaming : public Myth::Stream
 {
 public:
   FileStreaming(const std::string& filePath);

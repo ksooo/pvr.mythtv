@@ -28,10 +28,10 @@
 class FileStreaming;
 class TaskHandler;
 
-class ATTRIBUTE_HIDDEN PVRClientMythTV : public kodi::addon::CInstancePVRClient, public Myth::EventSubscriber
+class ATTR_DLL_LOCAL PVRClientMythTV : public kodi::addon::CInstancePVRClient, public Myth::EventSubscriber
 {
 public:
-  PVRClientMythTV(KODI_HANDLE instance, const std::string& version);
+  PVRClientMythTV(const kodi::addon::IInstanceInfo& instance);
   virtual ~PVRClientMythTV();
 
   // Server
