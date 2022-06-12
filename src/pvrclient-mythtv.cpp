@@ -977,8 +977,18 @@ PVR_ERROR PVRClientMythTV::GetRecordings(kodi::addon::PVRRecordingsResultSet& re
       tag.SetRecordingTime(GetRecordingTime(airTime, it->second.RecordingStartTime()));
       tag.SetDuration(it->second.Duration());
       tag.SetPlayCount(it->second.IsWatched() ? 1 : 0);
-      tag.SetLastPlayedPosition(it->second.HasBookmark() ? 1 : 0);
-
+      tag.SetLastPlayedPosition(0);
+      if (it->second.HasBookmark())
+      {
+        Myth::ProgramPtr prog(it->second.GetPtr());
+        if (prog)
+        {
+          int64_t duration = m_control->GetSavedBookmark(*prog, 2); // returns 0 if no bookmark was found
+          if (duration > 0)
+            tag.SetLastPlayedPosition((int)(duration / 1000));
+        }
+      }
+      
       std::string id = it->second.UID();
 
       std::string str; // a temporary string to build formating label
