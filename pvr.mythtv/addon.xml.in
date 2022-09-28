@@ -163,8 +163,10 @@
     <disclaimer lang="sv_SE">Denna mjukvara är instabil! Utvecklarna är inte ansvariga för misslyckade inspelningar, felaktiga timers, bortkastade timmar eller några andra olyckliga effekter.</disclaimer>
     <disclaimer lang="szl">To software je niysztabilne! Autory w żŏdyn knif niy ôdpadajōm za niypodarzōne nagrania, felery w harmōnogramie nagrań, potracōne godziny a tyż jake ino inksze niynazdane efekty.</disclaimer>
     <disclaimer lang="te_IN">ఇది అస్థిర సాఫ్ట్వేర్! విఫలమైన రికార్డింగ్లు, తప్పు టైమర్లు, వృధా గంటల, లేదా ఏ ఇతర అవాంఛనీయ ప్రభావాలకు ఏ విధంగా రచయితలు భాద్యుతులు కారు.</disclaimer>
+    <disclaimer lang="tg_TJ">Ин нармафзори ноустувор аст! Муаллифон барои вайрониҳои сабт, вақтсанҷҳои нодуруст, соатҳои бефоида ва дигар таъсирҳои номатлуб ҷавобгар намебошанд.</disclaimer>
+    <disclaimer lang="th_TH">นี่คือโปรแกรมที่ยังไม่เสถียร! ผู้เขียนไม่อยู่ในทางที่จะรับผิดชอบในการบันทึกที่ล้มเหลว, การตั้งเวลาที่ไม่ถูกต้อง, การเสียเวลา, หรือผลกระทบที่ไม่พึงประสงค์อื่น ๆ.</disclaimer>
     <disclaimer lang="tr_TR">Bu kararsız bir yazılımdır! Yazılımcılar oynatma hatası, yanlış EPG tarihleri, hatalı saatler ya da diğer etkilerden sorumlu değiller.</disclaimer>
-    <disclaimer lang="uk_UA">Це нестабільна програма! Автор не несуть жодної відповідальності за зіпсуті записи, неправильні таймери, потрачений час, та інші небажані ефекти.</disclaimer>
+    <disclaimer lang="uk_UA">Це нестабільна програма! Автори не несуть жодної відповідальності за зіпсуті записи, неправильні таймери, витрачений час та будь-які інші небажані ефекти.</disclaimer>
     <disclaimer lang="vi_VN">Đây là phần mềm không ổn định! Các tác giả sẽ không chịu trách nhiệm nào với các bản ghi thất bại, bị đặt giờ sai, giờ lãng phí, hoặc các tác dụng không mong muốn khác..</disclaimer>
     <disclaimer lang="zh_CN">这是不稳定版的软件！作者不对录制失败、错误定时造成时间浪费或其它不良影响负责。</disclaimer>
     <disclaimer lang="zh_TW">這是測試中的軟體！原創作者無法針對以下情況負責：包括錄影失敗，不正確的定時器，多餘的時數，或任何不可預期的不良影響。</disclaimer>
