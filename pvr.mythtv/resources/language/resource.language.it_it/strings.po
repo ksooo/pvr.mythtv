@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2023-01-13 21:15+0000\n"
+"PO-Revision-Date: 2023-03-24 09:16+0000\n"
 "Last-Translator: Massimo Pissarello <mapi68@gmail.com>\n"
 "Language-Team: Italian <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-mythtv/it_it/>\n"
 "Language: it_it\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15\n"
+"X-Generator: Weblate 4.15.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi frontend for MythTV"
@@ -35,19 +35,19 @@ msgstr "Nome host o IP backend di MythTV"
 
 msgctxt "#30001"
 msgid "MythTV Backend Port"
-msgstr "Porta del pannello di amministrazione di MythTV"
+msgstr "Porta backend MythTV"
 
 msgctxt "#30002"
 msgid "MythTV Database Username"
-msgstr "Username del database di MythTV"
+msgstr "Nome utente database MythTV"
 
 msgctxt "#30003"
 msgid "MythTV Database Password"
-msgstr "Password del database di MythTV"
+msgstr "Password database MythTV"
 
 msgctxt "#30004"
 msgid "MythTV Database Databasename"
-msgstr "Nome del database di MythTV"
+msgstr "Nome database MythTV"
 
 msgctxt "#30005"
 msgid "Include more debug information in the log file"
@@ -55,27 +55,27 @@ msgstr "Includi maggiori informazioni di debug nel file di log"
 
 msgctxt "#30006"
 msgid "Enable Live TV"
-msgstr "Attiva la TV Live"
+msgstr "Abilita Live TV"
 
 msgctxt "#30007"
 msgid "Allow Live TV to move scheduled shows"
-msgstr "Consenti a TV Live di spostare gli spettacoli programmati"
+msgstr "Consenti a Live TV di spostare gli eventi pianificati"
 
 msgctxt "#30008"
 msgid "Conflict handling"
-msgstr "Gestione conflitto"
+msgstr "Gestione conflitti"
 
 msgctxt "#30009"
 msgid "Prefer Live TV when recording has later slot"
-msgstr "Preferisci la TV dal Vivo quando la registrazione è spostata"
+msgstr "Preferisci Live TV quando la registrazione ha uno slot successivo"
 
 msgctxt "#30010"
 msgid "Prefer recording and stop Live TV"
-msgstr "Preferisci la registrazione e ferma la TV dal Vivo"
+msgstr "Preferisci la registrazione e ferma Live TV"
 
 msgctxt "#30011"
 msgid "Prefer Live TV and cancel conflicting recording"
-msgstr "Preferisci Live TV e cancella le registrazioni incompatibili"
+msgstr "Preferisci Live TV e annulla la registrazione in conflitto"
 
 msgctxt "#30012"
 msgid "MythTV Backend Ethernet address (WOL)"
@@ -83,7 +83,7 @@ msgstr "Indirizzo ethernet backend MythTV (WOL)"
 
 msgctxt "#30013"
 msgid "MythTV Backend Port for API services"
-msgstr "Porta Backend MythTV per servizi API"
+msgstr "Porta backend MythTV per servizi API"
 
 msgctxt "#30014"
 msgid "MythTV Security Pin for API services"
@@ -111,11 +111,11 @@ msgstr "Modello interno"
 
 msgctxt "#30026"
 msgid "Automatically Look Up Metadata"
-msgstr "Guarda automaticamente i Metadata"
+msgstr "Cerca automaticamente i metadati"
 
 msgctxt "#30027"
 msgid "Commercial Flag new recordings"
-msgstr "Nuove registrazioni bandiere commerciali"
+msgstr "Indicatore pubblicità per nuove registrazioni"
 
 msgctxt "#30028"
 msgid "Transcode new recordings"
@@ -123,19 +123,19 @@ msgstr "Transcodifica nuove registrazioni"
 
 msgctxt "#30029"
 msgid "Run User Job #1"
-msgstr "Esegui Processo User #1"
+msgstr "Esegui attività utente #1"
 
 msgctxt "#30030"
 msgid "Run User Job #2"
-msgstr "Esegui Processo User #2"
+msgstr "Esegui attività utente #2"
 
 msgctxt "#30031"
 msgid "Run User Job #3"
-msgstr "Esegui Processo User #3"
+msgstr "Esegui attività utente #3"
 
 msgctxt "#30032"
 msgid "Run User Job #4"
-msgstr "Esegui Processo User #4"
+msgstr "Esegui attività utente #4"
 
 msgctxt "#30033"
 msgid "Transcoder"
@@ -143,20 +143,20 @@ msgstr "Transcodificatore"
 
 msgctxt "#30034"
 msgid "Allow recordings to expire"
-msgstr "Permetti alle registrazioni di scadere"
+msgstr "Consenti scadenza registrazioni"
 
 # empty strings from id 30035 to 30045
 msgctxt "#30046"
 msgid "Show damaged recordings as color"
-msgstr "Mostra registrazioni danneggiate come colore"
+msgstr "Mostra registrazioni danneggiate con colore"
 
 msgctxt "#30047"
 msgid "Prompt to delete the watched recording"
-msgstr "Scegliere per cancellare le registrazioni visualizzate"
+msgstr "Richiedi di eliminare la registrazione guardata"
 
 msgctxt "#30048"
 msgid "Show 'Original Airdate' instead of 'Recording Time'"
-msgstr "Mostra 'Data di messa in onda originale' invece di 'Ora di registrazione'"
+msgstr "Mostra \"Data trasmissione originale\" invece di \"Ora di registrazione\""
 
 msgctxt "#30049"
 msgid "Recording template"
@@ -176,7 +176,7 @@ msgstr "Abilita demuxing MPEG-TS"
 
 msgctxt "#30053"
 msgid "Tuning delay (sec)"
-msgstr "Ritardo regolazione (sec)"
+msgstr "Ritardo sintonizzazione (sec)"
 
 msgctxt "#30054"
 msgid "Group recordings by title"
@@ -196,7 +196,7 @@ msgstr "Mai"
 
 msgctxt "#30058"
 msgid "Enable commercial skips (EDL)"
-msgstr "Abilita il salto della pubblicità (EDL)"
+msgstr "Abilita salto pubblicità (EDL)"
 
 msgctxt "#30059"
 msgid "Always"
@@ -212,7 +212,7 @@ msgstr "Mai"
 
 msgctxt "#30062"
 msgid "Allow backend shutdown"
-msgstr "Consenti chiusura backend"
+msgstr "Consenti spegnimento backend"
 
 msgctxt "#30063"
 msgid "Enable channel icons"
@@ -220,19 +220,19 @@ msgstr "Abilita icone canale"
 
 msgctxt "#30064"
 msgid "Enable recording fanart/thumbnails"
-msgstr "Abilita fanart/thumbnails per le registrazioni"
+msgstr "Abilita fanart/miniature per le registrazioni"
 
 msgctxt "#30065"
 msgid "Limit channel tuning attempts"
-msgstr "Limite i tentativi di regolazione"
+msgstr "Limita tentativi di sintonizzazione canale"
 
 msgctxt "#30066"
 msgid "Show inactive upcomings (alternative/recorded/expired)"
-msgstr "Mostra tutte le ultime inattività (alternativi/registrati/scaduti)"
+msgstr "Mostra ultime inattività (alternative/registrate/scadute)"
 
 msgctxt "#30067"
 msgid "Show LiveTV recordings"
-msgstr "Mostra registrazioni LiveTV"
+msgstr "Mostra registrazioni Live TV"
 
 msgctxt "#30068"
 msgid "Use bookmarks of the backend MythTV"
@@ -248,7 +248,7 @@ msgstr "Solo scena"
 
 msgctxt "#30100"
 msgid "Protocol version: %i - Database version: %i"
-msgstr "Versione Protocollo: %i - Versione Database: %i"
+msgstr "Versione protocollo: %i - Versione database: %i"
 
 msgctxt "#30110"
 msgid "Enabling EDL"
@@ -272,15 +272,15 @@ msgstr "Vuoi riprovare?"
 
 msgctxt "#30114"
 msgid "Connected"
-msgstr "Collegato"
+msgstr "Connesso"
 
 msgctxt "#30300"
 msgid "Failed to connect the MythTV backend with the known protocol versions. Please check the compatibility map of the addon and upgrade your backend to a supported version."
-msgstr "Connessione al backend MythTV fallita con le versioni conosciute del protocollo. Controlla la mappa compatibilità dell'add-on e aggiorna il backend a una versione supportata."
+msgstr "Impossibile connettere il backend di MythTV con le versioni conosciute del protocollo. Controlla la mappa di compatibilità dell'add-on e aggiorna il tuo backend a una versione supportata."
 
 msgctxt "#30301"
 msgid "Failed to connect the API services of MythTV backend. Please check your PIN code or backend setup. The PIN code has to be configured in your backend to allow connection."
-msgstr "Connessione ai servizi API di MythTV fallita. Controlla il tuo codice PIN o la configurazione del backend. Il codice PIN deve essere configurato nel tuo backend per permettere la connessione."
+msgstr "Impossibile connettere i servizi API del backend di MythTV. Controlla il codice PIN o la configurazione del backend. Il codice PIN deve essere configurato nel tuo backend per consentire la connessione."
 
 msgctxt "#30302"
 msgid "Connection to MythTV backend lost"
@@ -304,11 +304,11 @@ msgstr "Registratore non disponibile"
 
 msgctxt "#30307"
 msgid "Canceling conflicting recording: %s"
-msgstr "Eliminazione delle registrazioni incompatibili: %s"
+msgstr "Annullamento registrazione in conflitto: %s"
 
 msgctxt "#30308"
 msgid "Stopping Live TV due to conflicting recording: %s"
-msgstr "Blocco di Live TV a causa di registrazioni incompatibili: %s"
+msgstr "Interruzione di Live TV a causa di registrazioni in conflitto: %s"
 
 msgctxt "#30309"
 msgid "Not recording"
@@ -336,27 +336,27 @@ msgstr "Mantieni registrazione"
 
 msgctxt "#30421"
 msgid "Toggle display of alternative/recorded/expired"
-msgstr "Alterna la visualizzazione di alternativi/registrati/scaduti"
+msgstr "Alterna visualizzazione di alternativi/registrati/scaduti"
 
 msgctxt "#30422"
 msgid "Refresh cache for channel icons"
-msgstr "Ricarica la cache per le icone dei canali"
+msgstr "Aggiorna la cache per le icone dei canali"
 
 msgctxt "#30423"
 msgid "Trigger channels update"
-msgstr "Impostazioni aggiornamento canali"
+msgstr "Attiva aggiornamento canali"
 
 msgctxt "#30424"
 msgid "Show status of scheduling"
-msgstr "Mostra stato operazioni pianificate"
+msgstr "Mostra stato pianificazioni"
 
 msgctxt "#30425"
 msgid "Show status of recording"
-msgstr "Mostra stato della registrazione"
+msgstr "Mostra stato registrazione"
 
 msgctxt "#30426"
 msgid "Show status of broadcast"
-msgstr "Mostra stato della trasmissione"
+msgstr "Mostra stato trasmissione"
 
 msgctxt "#30451"
 msgid "Unhandled"
@@ -368,7 +368,7 @@ msgstr "Prossimamente"
 
 msgctxt "#30453"
 msgid "Overriden"
-msgstr "Sovrascritto"
+msgstr "Sostituito"
 
 msgctxt "#30454"
 msgid "Don't record"
@@ -376,7 +376,7 @@ msgstr "Non registrare"
 
 msgctxt "#30455"
 msgid "Upcoming manual"
-msgstr "Manuale imminente"
+msgstr "Manuale in arrivo"
 
 msgctxt "#30456"
 msgid "Zombie"
@@ -384,11 +384,11 @@ msgstr "Zombie"
 
 msgctxt "#30457"
 msgid "Alternative"
-msgstr "Alternativi"
+msgstr "Alternativo"
 
 msgctxt "#30458"
 msgid "Currently recorded"
-msgstr "In Registrazione"
+msgstr "Attualmente registrato"
 
 msgctxt "#30459"
 msgid "Expired recording"
@@ -400,7 +400,7 @@ msgstr "Manuale"
 
 msgctxt "#30461"
 msgid "Record one"
-msgstr "Registra una"
+msgstr "Registra una volta"
 
 msgctxt "#30462"
 msgid "Record weekly"
@@ -424,7 +424,7 @@ msgstr "Registra serie"
 
 msgctxt "#30467"
 msgid "Search keyword"
-msgstr "Cerca parola chiave"
+msgstr "Parola chiave di ricerca"
 
 msgctxt "#30468"
 msgid "Search people"
@@ -436,23 +436,23 @@ msgstr "Regola disabilitata"
 
 msgctxt "#30501"
 msgid "Don't match duplicates"
-msgstr "Non confrontare i duplicati"
+msgstr "Non confrontare duplicati"
 
 msgctxt "#30502"
 msgid "Match duplicates using subtitle"
-msgstr "Confronta i duplicati usando il sottotitolo"
+msgstr "Confronta duplicati usando il sottotitolo"
 
 msgctxt "#30503"
 msgid "Match duplicates using description"
-msgstr "Confronta i duplicati usando la descrizione"
+msgstr "Confronta duplicati usando la descrizione"
 
 msgctxt "#30504"
 msgid "Match duplicates using subtitle & description"
-msgstr "Confronta i duplicati usando il sottotitolo e la descrizione"
+msgstr "Confronta duplicati usando il sottotitolo e la descrizione"
 
 msgctxt "#30505"
 msgid "Match duplicates using subtitle then description"
-msgstr "Confronta i duplicati usando il sottotitolo e poi la descrizione"
+msgstr "Confronta duplicati usando il sottotitolo e poi la descrizione"
 
 msgctxt "#30506"
 msgid "Recordings never expire"
@@ -460,12 +460,12 @@ msgstr "Le registrazioni non scadono mai"
 
 msgctxt "#30507"
 msgid "Allow recordings to expire"
-msgstr "Permetti alle registrazioni di scadere"
+msgstr "Consenti scadenza registrazioni"
 
 msgctxt "#30508"
 msgid "Keep up to %d recordings"
-msgstr "Mantieni fino a %d registrazioni"
+msgstr "Conserva fino a %d registrazioni"
 
 msgctxt "#30509"
 msgid "Keep %d newest and expire old"
-msgstr "Mantieni %d recenti e lascia scadere quelle vecchie"
+msgstr "Conserva %d più recenti e lascia scadere più vecchie"
