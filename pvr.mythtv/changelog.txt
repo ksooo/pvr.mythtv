@@ -1,3 +1,7 @@
+v20.4.0
+- Sync upstream lib cppmyth 2.15.0
+  - Fix compatibility with services API v2 (MythTV 34)
+
 v20.3.2
 - Sync upstream lib cppmyth 2.14.7
 
