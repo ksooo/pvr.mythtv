@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: KODI Main\n"
 "Report-Msgid-Bugs-To: translations@kodi.tv\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"PO-Revision-Date: 2022-09-16 07:15+0000\n"
+"PO-Revision-Date: 2023-07-28 09:11+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://kodi.weblate.cloud/projects/kodi-add-ons-pvr-clients/pvr-mythtv/fi_fi/>\n"
 "Language: fi_fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14\n"
+"X-Generator: Weblate 4.18.2\n"
 
 msgctxt "Addon Summary"
 msgid "Kodi frontend for MythTV"
@@ -27,7 +27,7 @@ msgstr "MythTV (enintään MythTV 31) -käyttöliittymä, joka tukee televisiol�
 
 msgctxt "Addon Disclaimer"
 msgid "This is unstable software! The authors are in no way responsible for failed recordings, incorrect timers, wasted hours, or any other undesirable effects."
-msgstr "Tämä on epävakaa ohjelmisto! Sen kehittäjät eivät ole millään tavoin vastuussa epäonnistuneista tallennuksista, virheellisistä ajastuksista, hukatusta ajasta tai mistään muusta ei-toivotuista seurauksista."
+msgstr "Tämä on epävakaa ohjelmisto! Sen kehittäjät eivät ole millään tavoin vastuussa epäonnistuneista tallennuksista, virheellisistä ajastuksista, hukatusta ajasta tai mistään muistakaan ei-toivotuista seurauksista."
 
 msgctxt "#30000"
 msgid "MythTV Backend Hostname or IP"
@@ -148,7 +148,7 @@ msgstr "Salli tallenteiden vanheneminen"
 # empty strings from id 30035 to 30045
 msgctxt "#30046"
 msgid "Show damaged recordings as color"
-msgstr ""
+msgstr "Näytä vaurioituneet tallenteet värillä"
 
 msgctxt "#30047"
 msgid "Prompt to delete the watched recording"
@@ -236,15 +236,15 @@ msgstr "Näytä tallenteet"
 
 msgctxt "#30068"
 msgid "Use bookmarks of the backend MythTV"
-msgstr ""
+msgstr "Käytä MythTV-taustajärjetelmän kirjanmerkkejä"
 
 msgctxt "#30069"
 msgid "Show default recording group as root"
-msgstr ""
+msgstr "Näytä oletusarvoinen tallennusryhmä juurena"
 
 msgctxt "#30070"
 msgid "Scene Only"
-msgstr ""
+msgstr "Vain kohtaus"
 
 msgctxt "#30100"
 msgid "Protocol version: %i - Database version: %i"
@@ -272,7 +272,7 @@ msgstr "Haluatko yrittää uudelleen?"
 
 msgctxt "#30114"
 msgid "Connected"
-msgstr ""
+msgstr "Yhdistetty"
 
 msgctxt "#30300"
 msgid "Failed to connect the MythTV backend with the known protocol versions. Please check the compatibility map of the addon and upgrade your backend to a supported version."
@@ -352,11 +352,11 @@ msgstr "Näytä ajastusten tila"
 
 msgctxt "#30425"
 msgid "Show status of recording"
-msgstr ""
+msgstr "Näytä tallennuksen tila"
 
 msgctxt "#30426"
 msgid "Show status of broadcast"
-msgstr ""
+msgstr "Näytä lähetyksen tila"
 
 msgctxt "#30451"
 msgid "Unhandled"
