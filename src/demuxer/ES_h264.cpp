@@ -84,8 +84,8 @@ void ES_h264::Parse(STREAM_PKT* pkt)
     {
       double PAR = (double)m_PixelAspect.num/(double)m_PixelAspect.den;
       double DAR = (PAR * m_Width) / m_Height;
-      DBG(DEMUX_DBG_PARSE, "H.264 SPS: PAR %i:%i\n", m_PixelAspect.num, m_PixelAspect.den);
-      DBG(DEMUX_DBG_PARSE, "H.264 SPS: DAR %.2f\n", DAR);
+      //DBG(DEMUX_DBG_PARSE, "H.264 SPS: PAR %i:%i\n", m_PixelAspect.num, m_PixelAspect.den);
+      //DBG(DEMUX_DBG_PARSE, "H.264 SPS: DAR %.2f\n", DAR);
 
       uint64_t duration;
       if (c_dts != PTS_UNSET && p_dts != PTS_UNSET && c_dts > p_dts)

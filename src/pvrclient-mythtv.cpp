@@ -9,6 +9,7 @@
 #include "pvrclient-mythtv.h"
 #include "tools.h"
 #include "avinfo.h"
+#include "demux.h"
 #include "filestreaming.h"
 #include "taskhandler.h"
 #include "private/os/threads/mutex.h"
@@ -39,6 +40,7 @@ PVRClientMythTV::PVRClientMythTV(const kodi::addon::IInstanceInfo& instance)
 , m_scheduleManager(NULL)
 , m_lock(new Myth::OS::CMutex)
 , m_todo(NULL)
+, m_demux(NULL)
 , m_channelsLock(new Myth::OS::CMutex)
 , m_recordingsLock(new Myth::OS::CMutex)
 , m_recordingChangePinCount(0)
@@ -64,6 +66,7 @@ PVRClientMythTV::PVRClientMythTV(const kodi::addon::IInstanceInfo& instance)
 PVRClientMythTV::~PVRClientMythTV()
 {
   delete m_todo;
+  delete m_demux;
   delete m_dummyStream;
   delete m_liveStream;
   delete m_recordingStream;
@@ -203,6 +206,7 @@ PVR_ERROR PVRClientMythTV::GetCapabilities(kodi::addon::PVRCapabilities& capabil
   capabilities.SetHandlesInputStream(true);
   capabilities.SetHandlesDemuxing(false);
 
+  capabilities.SetHandlesDemuxing(CMythSettings::GetDemuxing());
   capabilities.SetSupportsRecordings(true);
   capabilities.SetSupportsRecordingsDelete(true);
   capabilities.SetSupportsRecordingsUndelete(true);
@@ -2219,6 +2223,12 @@ bool PVRClientMythTV::OpenLiveStream(const kodi::addon::PVRChannel& channel)
   // Try to open
   if (m_liveStream->SpawnLiveTV(chanset[0]->chanNum, chanset))
   {
+    if(CMythSettings::GetDemuxing())
+    {
+      if (m_demux)
+        delete m_demux;
+      m_demux = new Demux(*this, m_liveStream);
+    }
     kodi::Log(ADDON_LOG_DEBUG, "%s: Done", __FUNCTION__);
     return true;
   }
@@ -2231,6 +2241,8 @@ bool PVRClientMythTV::OpenLiveStream(const kodi::addon::PVRChannel& channel)
     m_dummyStream = new FileStreaming(ClientPath() + PATH_SEPARATOR_STRING + "resources" + PATH_SEPARATOR_STRING + "channel_unavailable.ts");
   if (m_dummyStream && m_dummyStream->IsValid())
   {
+    if (CMythSettings::GetDemuxing())
+      m_demux = new Demux(*this, m_dummyStream);
     return true;
   }
   delete m_dummyStream;
@@ -2246,6 +2258,10 @@ void PVRClientMythTV::CloseLiveStream()
 
   // Begin critical section
   Myth::OS::CLockGuard lock(*m_lock);
+  // Destroy my demuxer
+  if (m_demux)
+    delete m_demux;
+  m_demux = nullptr;
   // Destroy my stream
   if (m_liveStream)
     delete m_liveStream;
@@ -2402,9 +2418,22 @@ PVR_ERROR PVRClientMythTV::GetStreamTimes(kodi::addon::PVRStreamTimes& streamTim
   time_t now = time(NULL);
   if (now < endTs)
     endTs = now;
-  streamTimes.SetPTSStart(0); // it is started from 0 by the ffmpeg demuxer
-  streamTimes.SetPTSBegin(0); // earliest pts player can seek back
-  streamTimes.SetPTSEnd(static_cast<int64_t>(difftime(endTs, begTs)) * STREAM_TIME_BASE);
+
+  /* retrieve the start pts from the demuxer */
+  if (m_demux)
+  {
+    int64_t spts = m_demux->GetStartPTS();
+    int64_t epts = m_demux->GetEndPTS();
+    streamTimes.SetPTSStart(spts); // it is started from 0 by the ffmpeg demuxer
+    streamTimes.SetPTSBegin(spts); // earliest pts player can seek back
+    streamTimes.SetPTSEnd(epts);
+  }
+  else
+  {
+    streamTimes.SetPTSStart(0); // it is started from 0 by the ffmpeg demuxer
+    streamTimes.SetPTSBegin(0); // earliest pts player can seek back
+    streamTimes.SetPTSEnd(static_cast<int64_t>(difftime(endTs, begTs)) * STREAM_TIME_BASE);
+  }
   return PVR_ERROR_NO_ERROR;
 }
 
@@ -2418,6 +2447,33 @@ bool PVRClientMythTV::CanSeekStream()
 {
   // reject seek with dummy stream
   return (m_liveStream ? true : false);
+}
+
+PVR_ERROR PVRClientMythTV::GetStreamProperties(std::vector<kodi::addon::PVRStreamProperties>& properties)
+{
+  return m_demux && m_demux->GetStreamProperties(properties) ? PVR_ERROR_NO_ERROR : PVR_ERROR_SERVER_ERROR;
+}
+
+void PVRClientMythTV::DemuxAbort(void)
+{
+  if (m_demux)
+    m_demux->Abort();
+}
+
+void PVRClientMythTV::DemuxFlush(void)
+{
+  if (m_demux)
+    m_demux->Flush();
+}
+
+DEMUX_PACKET* PVRClientMythTV::DemuxRead(void)
+{
+  return m_demux ? m_demux->Read() : NULL;
+}
+
+bool PVRClientMythTV::SeekTime(double time, bool backwards, double& startpts)
+{
+  return m_demux ? m_demux->SeekTime(time, backwards, &startpts) : false;
 }
 
 bool PVRClientMythTV::OpenRecordedStream(const kodi::addon::PVRRecording& recording)

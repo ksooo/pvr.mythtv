@@ -25,6 +25,7 @@
 #include <vector>
 #include <map>
 
+class Demux;
 class FileStreaming;
 class TaskHandler;
 
@@ -113,6 +114,13 @@ public:
   bool CanPauseStream() override;
   bool CanSeekStream() override;
 
+  // Demuxing
+  PVR_ERROR GetStreamProperties(std::vector<kodi::addon::PVRStreamProperties>& properties) override;
+  void DemuxAbort(void) override;
+  void DemuxFlush(void) override;
+  DEMUX_PACKET* DemuxRead(void) override;
+  bool SeekTime(double time, bool backwards, double& startpts) override;
+
   // Recording playback
   bool OpenRecordedStream(const kodi::addon::PVRRecording& recinfo) override;
   void CloseRecordedStream() override;
@@ -160,6 +168,9 @@ private:
 
   // Categories
   Categories m_categories;
+
+  // Demuxer
+  Demux * m_demux;
 
   // Channels
   typedef std::map<unsigned int, MythChannel> ChannelIdMap;

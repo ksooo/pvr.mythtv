@@ -34,6 +34,7 @@ bool        CMythSettings::m_bRecAutoRunJob3         = false;
 bool        CMythSettings::m_bRecAutoRunJob4         = false;
 bool        CMythSettings::m_bRecAutoExpire          = false;
 int         CMythSettings::m_iRecTranscoder          = 0;
+bool        CMythSettings::m_bDemuxing               = DEFAULT_HANDLE_DEMUXING;
 int         CMythSettings::m_iTuneDelay              = DEFAULT_TUNE_DELAY;
 int         CMythSettings::m_iGroupRecordings        = GROUP_RECORDINGS_ALWAYS;
 bool        CMythSettings::m_bUseAirdate             = DEFAULT_USE_AIRDATE;
@@ -124,6 +125,14 @@ bool CMythSettings::Load()
   m_bRecAutoRunJob4 = kodi::addon::GetSettingBoolean("rec_autorunjob4", false);
   m_bRecAutoExpire = kodi::addon::GetSettingBoolean("rec_autoexpire", false);
   m_iRecTranscoder = kodi::addon::GetSettingInt("rec_transcoder", 0);
+
+  /* Read setting "demuxing" from settings.xml */
+  if (!kodi::addon::CheckSettingBoolean("demuxing", m_bDemuxing))
+  {
+    /* If setting is unknown fallback to defaults */
+    kodi::Log(ADDON_LOG_ERROR, "Couldn't get 'demuxing' setting, falling back to '%b' as default", DEFAULT_HANDLE_DEMUXING);
+    m_bDemuxing = DEFAULT_HANDLE_DEMUXING;
+  }
 
   /* Read setting "tunedelay" from settings.xml */
   if (!kodi::addon::CheckSettingInt("tunedelay", m_iTuneDelay))
@@ -295,6 +304,12 @@ ADDON_STATUS CMythSettings::SetSetting(PVRClientMythTV& client,
     tmp_sWSSecurityPin = m_szWSSecurityPin;
     m_szWSSecurityPin = settingValue.GetString();
     if (tmp_sWSSecurityPin != m_szWSSecurityPin)
+      return ADDON_STATUS_NEED_RESTART;
+  }
+  else if (settingName == "demuxing")
+  {
+    kodi::Log(ADDON_LOG_INFO, "Changed Setting 'demuxing' from %u to %u", m_bDemuxing, settingValue.GetBoolean());
+    if (m_bDemuxing != settingValue.GetBoolean())
       return ADDON_STATUS_NEED_RESTART;
   }
   else if (settingName == "channel_icons")

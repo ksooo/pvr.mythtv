@@ -34,6 +34,7 @@
 #define MENUHOOK_INFO_RECORDING             7
 #define MENUHOOK_INFO_EPG                   8
 
+#define DEFAULT_HANDLE_DEMUXING             false
 #define DEFAULT_TUNE_DELAY                  5
 #define GROUP_RECORDINGS_ALWAYS             0
 #define GROUP_RECORDINGS_ONLY_FOR_SERIES    1
@@ -85,6 +86,7 @@ public:
   static bool GetRecAutoRunJob4() { return m_bRecAutoRunJob4; }
   static bool GetRecAutoExpire() { return m_bRecAutoExpire; }
   static int GetRecTranscoder() { return m_iRecTranscoder; }
+  static bool GetDemuxing() { return m_bDemuxing; }
   static int GetTuneDelay() { return m_iTuneDelay; }
   static int GetGroupRecordings() { return m_iGroupRecordings; }
   static bool GetUseAirdate() { return m_bUseAirdate; }
@@ -121,6 +123,7 @@ private:
   static bool          m_bRecAutoRunJob4;
   static bool          m_bRecAutoExpire;
   static int           m_iRecTranscoder;
+  static bool          m_bDemuxing;
   static int           m_iTuneDelay;
   static int           m_iGroupRecordings;
   static bool          m_bUseAirdate;
