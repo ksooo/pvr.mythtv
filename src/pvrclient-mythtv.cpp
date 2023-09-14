@@ -2247,9 +2247,11 @@ void PVRClientMythTV::CloseLiveStream()
   // Begin critical section
   Myth::OS::CLockGuard lock(*m_lock);
   // Destroy my stream
-  delete m_liveStream;
+  if (m_liveStream)
+    delete m_liveStream;
   m_liveStream = nullptr;
-  delete m_dummyStream;
+  if (m_dummyStream)
+    delete m_dummyStream;
   m_dummyStream = nullptr;
 
   // Reset stop request
