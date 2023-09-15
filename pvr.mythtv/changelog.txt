@@ -1,3 +1,8 @@
+v20.5.0
+- Bring back of the internal demuxing
+  Enabling internal demuxing improves rendering fluidity, and could help to fix stuttering issues.
+  The demuxer can be enabled from advanced settings.
+
 v20.4.0
 - Sync upstream lib cppmyth 2.15.0
   - Fix compatibility with services API v2 (MythTV 34)
