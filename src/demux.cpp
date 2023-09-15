@@ -261,10 +261,10 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
   // time is in MSEC not PTS_TIME_BASE. Rescale time to PTS (90Khz)
   int64_t pts = (int64_t)(time * PTS_TIME_BASE / 1000);
 
+  Myth::OS::CLockGuard guard(m_lock);
   kodi::Log(ADDON_LOG_INFO, LOGTAG "%s: bw=%d desired=%" PRId64 " cur=%" PRId64 " end=%" PRId64, __FUNCTION__, backwards,
           pts, m_startpts + m_curTime, m_startpts + m_endTime);
 
-  Myth::OS::CLockGuard guard(m_lock);
   std::list<AV_POSMAP_ITEM>::const_iterator it;
   int64_t time_pts = pts - m_startpts;
 
@@ -286,7 +286,7 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
     m_pts = it->av_pts;
 
     *startpts = (double)m_pts * STREAM_TIME_BASE / PTS_TIME_BASE;
-    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, m_pts);
+    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, (m_startpts + m_curTime));
     return true;
   }
   return false;
@@ -294,6 +294,7 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
 
 int Demux::GetPlayingTime()
 {
+  Myth::OS::CLockGuard guard(m_lock);
   double time_ms = (double)m_curTime * 1000 / PTS_TIME_BASE;
   if (time_ms > INT_MAX)
     return INT_MAX;
@@ -302,11 +303,13 @@ int Demux::GetPlayingTime()
 
 int64_t Demux::GetStartPTS()
 {
+  Myth::OS::CLockGuard guard(m_lock);
   return (int64_t)((double)m_startpts * STREAM_TIME_BASE / PTS_TIME_BASE);
 }
 
 int64_t Demux::GetEndPTS()
 {
+  Myth::OS::CLockGuard guard(m_lock);
   return (int64_t)((double)(m_startpts + m_endTime) * STREAM_TIME_BASE / PTS_TIME_BASE);
 }
 
@@ -321,6 +324,7 @@ bool Demux::get_stream_data(TSDemux::STREAM_PKT* pkt)
 
   if (m_startpts == PTS_UNSET)
   {
+    Myth::OS::CLockGuard guard(m_lock);
     if (pkt->pid == m_mainStreamPID)
       m_startpts = pkt->pts;
     else
@@ -336,6 +340,7 @@ bool Demux::get_stream_data(TSDemux::STREAM_PKT* pkt)
     // Sync main PTS
     m_pts = pkt->pts;
 
+    Myth::OS::CLockGuard guard(m_lock);
     // Fill duration map for main stream
     m_curTime += pkt->duration;
     if (m_curTime >= m_pinTime)
@@ -357,14 +362,11 @@ bool Demux::get_stream_data(TSDemux::STREAM_PKT* pkt)
 
 void Demux::reset_posmap()
 {
+  Myth::OS::CLockGuard guard(m_lock);
   if (m_posmap.empty())
     return;
-
-  {
-    Myth::OS::CLockGuard guard(m_lock);
-    m_posmap.clear();
-    m_pinTime = m_curTime = m_endTime = 0;
-  }
+  m_posmap.clear();
+  m_pinTime = m_curTime = m_endTime = 0;
 }
 
 static inline int stream_identifier(int composition_id, int ancillary_id)
