@@ -14,7 +14,6 @@
 #define LOGTAG                  "[DEMUX] "
 #define POSMAP_PTS_INTERVAL     (PTS_TIME_BASE * 2)       // 2 secs
 #define READAV_TIMEOUT          10000                     // 10 secs
-#define STARTPTS                0x80000000LL
 
 void DemuxLog(int level, char *msg)
 {
@@ -281,6 +280,8 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
     }
     if (it != m_posmap.rend())
       pos = &(*it);
+    else if (m_curTime > POSMAP_PTS_INTERVAL && it != m_posmap.rbegin())
+      pos = &(*(--it));
   }
   else
   {
@@ -292,6 +293,8 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
     }
     if (it != m_posmap.end())
       pos = &(*it);
+    else if (m_curTime < m_endTime && it != m_posmap.begin())
+      pos = &(*(--it));
   }
 
   if (pos)
