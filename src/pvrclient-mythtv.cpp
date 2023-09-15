@@ -2400,39 +2400,50 @@ PVR_ERROR PVRClientMythTV::GetStreamTimes(kodi::addon::PVRStreamTimes& streamTim
       unsigned seq = m_liveStream->GetChainedCount();
       if (seq == 0)
         return PVR_ERROR_REJECTED;
-      begTs = m_liveStream->GetLiveTimeStart();
-      endTs = m_liveStream->GetChainedProgram(seq)->recording.endTs;
-      streamTimes.SetStartTime(begTs);
+
+      /* DEMUXING */
+      if (m_demux)
+      {
+        begTs = m_liveStream->GetLiveTimeStart();
+        endTs = m_liveStream->GetChainedProgram(seq)->recording.endTs;
+        streamTimes.SetStartTime(begTs);
+        streamTimes.SetPTSStart(m_demux->GetStartPTS());
+        streamTimes.SetPTSBegin(streamTimes.GetPTSStart());
+        time_t now = time(NULL);
+        if (now < endTs)
+          endTs = now;
+        streamTimes.SetPTSEnd(streamTimes.GetPTSBegin() + (static_cast<int64_t>(difftime(endTs, begTs)) * STREAM_TIME_BASE));
+      }
+      /* STREAMING */
+      else
+      {
+        begTs = m_liveStream->GetLiveTimeStart();
+        endTs = m_liveStream->GetChainedProgram(seq)->recording.endTs;
+        streamTimes.SetStartTime(begTs);
+        streamTimes.SetPTSStart(0); // it is started from 0 by the ffmpeg demuxer
+        streamTimes.SetPTSBegin(0); // earliest pts player can seek back
+        time_t now = time(NULL);
+        if (now < endTs)
+          endTs = now;
+        streamTimes.SetPTSEnd(static_cast<int64_t>(difftime(endTs, begTs)) * STREAM_TIME_BASE);
+      }
     }
     else if (m_recordingStream && !m_recordingStreamInfo.IsNull())
     {
       begTs = m_recordingStreamInfo.RecordingStartTime();
       endTs = m_recordingStreamInfo.RecordingEndTime();
       streamTimes.SetStartTime(0); // for recordings, this must be zero
+      streamTimes.SetPTSStart(0); // it is started from 0 by the ffmpeg demuxer
+      streamTimes.SetPTSBegin(0); // earliest pts player can seek back
+      time_t now = time(NULL);
+      if (now < endTs)
+        endTs = now;
+      streamTimes.SetPTSEnd(static_cast<int64_t>(difftime(endTs, begTs)) * STREAM_TIME_BASE);
     }
     else
     {
       return PVR_ERROR_REJECTED;
     }
-  }
-  time_t now = time(NULL);
-  if (now < endTs)
-    endTs = now;
-
-  /* retrieve the start pts from the demuxer */
-  if (m_demux)
-  {
-    int64_t spts = m_demux->GetStartPTS();
-    int64_t epts = m_demux->GetEndPTS();
-    streamTimes.SetPTSStart(spts); // it is started from 0 by the ffmpeg demuxer
-    streamTimes.SetPTSBegin(spts); // earliest pts player can seek back
-    streamTimes.SetPTSEnd(epts);
-  }
-  else
-  {
-    streamTimes.SetPTSStart(0); // it is started from 0 by the ffmpeg demuxer
-    streamTimes.SetPTSBegin(0); // earliest pts player can seek back
-    streamTimes.SetPTSEnd(static_cast<int64_t>(difftime(endTs, begTs)) * STREAM_TIME_BASE);
   }
   return PVR_ERROR_NO_ERROR;
 }

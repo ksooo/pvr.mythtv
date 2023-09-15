@@ -260,17 +260,13 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
     return false;
   // time is in MSEC not PTS_TIME_BASE. Rescale time to PTS (90Khz)
   int64_t pts = (int64_t)(time * PTS_TIME_BASE / 1000);
-  // Compute desired time position
-  int64_t desired = pts - m_startpts;
 
-  kodi::Log(ADDON_LOG_INFO, LOGTAG "%s: bw=%d desired=%+6.3f cur=%+6.3f end=%+6.3f", __FUNCTION__, backwards,
-          ((double)desired / PTS_TIME_BASE) * 1000.0,
-          ((double)m_curTime / PTS_TIME_BASE) * 1000.0,
-          ((double)m_endTime / PTS_TIME_BASE) * 1000.0);
+  kodi::Log(ADDON_LOG_INFO, LOGTAG "%s: bw=%d desired=%" PRId64 " cur=%" PRId64 " end=%" PRId64, __FUNCTION__, backwards,
+          pts, m_startpts + m_curTime, m_startpts + m_endTime);
 
   Myth::OS::CLockGuard guard(m_lock);
   std::map<int64_t, AV_POSMAP_ITEM>::const_iterator it;
-  it = m_posmap.upper_bound(desired);
+  it = m_posmap.upper_bound(pts - m_startpts);
   if (backwards && it != m_posmap.begin())
     --it;
 
@@ -286,7 +282,7 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
     m_pts = new_pts;
 
     *startpts = (double)new_pts * STREAM_TIME_BASE / PTS_TIME_BASE;
-    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %+6.3f", ((double)new_time / PTS_TIME_BASE) * 1000.0);
+    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, new_pts);
     return true;
   }
   return false;
@@ -307,7 +303,7 @@ int64_t Demux::GetStartPTS()
 
 int64_t Demux::GetEndPTS()
 {
-  return (int64_t)(((double)m_startpts + (double)m_endTime) * STREAM_TIME_BASE / PTS_TIME_BASE);
+  return (int64_t)((double)(m_startpts + m_endTime) * STREAM_TIME_BASE / PTS_TIME_BASE);
 }
 
 bool Demux::get_stream_data(TSDemux::STREAM_PKT* pkt)
