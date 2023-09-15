@@ -17,7 +17,7 @@
 #include "fifo.h"
 
 #include <vector>
-#include <map>
+#include <list>
 #include <set>
 
 #define AV_BUFFER_SIZE          131072
@@ -77,10 +77,11 @@ private:
   int64_t m_endTime;            ///< last relative marked position (90Khz))
   typedef struct
   {
+    int64_t  time_pts;
     uint64_t av_pts;
     uint64_t av_pos;
   } AV_POSMAP_ITEM;
-  std::map<int64_t, AV_POSMAP_ITEM> m_posmap;
+  std::list<AV_POSMAP_ITEM> m_posmap;
 
   bool m_isChangePlaced;
   std::set<uint16_t> m_nosetup;

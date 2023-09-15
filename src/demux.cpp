@@ -265,24 +265,28 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
           pts, m_startpts + m_curTime, m_startpts + m_endTime);
 
   Myth::OS::CLockGuard guard(m_lock);
-  std::map<int64_t, AV_POSMAP_ITEM>::const_iterator it;
-  it = m_posmap.upper_bound(pts - m_startpts);
-  if (backwards && it != m_posmap.begin())
+  std::list<AV_POSMAP_ITEM>::const_iterator it;
+  int64_t time_pts = pts - m_startpts;
+
+  for (it = m_posmap.begin(); it != m_posmap.end(); ++it)
+  {
+    if (it->time_pts >= time_pts)
+      break;
+  }
+  if ((backwards && it != m_posmap.begin()) ||
+          (it == m_posmap.end() && it != m_posmap.begin()))
     --it;
 
   if (it != m_posmap.end())
   {
-    int64_t new_time = it->first;
-    uint64_t new_pos = it->second.av_pos;
-    uint64_t new_pts = it->second.av_pts;
     Flush();
-    m_AVContext->GoPosition(new_pos);
+    m_AVContext->GoPosition(it->av_pos);
     m_AVContext->ResetPackets();
-    m_curTime = m_pinTime = new_time;
-    m_pts = new_pts;
+    m_curTime = m_pinTime = it->time_pts;
+    m_pts = it->av_pts;
 
-    *startpts = (double)new_pts * STREAM_TIME_BASE / PTS_TIME_BASE;
-    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, new_pts);
+    *startpts = (double)m_pts * STREAM_TIME_BASE / PTS_TIME_BASE;
+    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, m_pts);
     return true;
   }
   return false;
@@ -340,9 +344,10 @@ bool Demux::get_stream_data(TSDemux::STREAM_PKT* pkt)
       if (m_curTime > m_endTime)
       {
         AV_POSMAP_ITEM item;
+        item.time_pts = m_curTime;
         item.av_pts = pkt->pts;
         item.av_pos = m_AVContext->GetPosition();
-        m_posmap.insert(std::make_pair(m_curTime, item));
+        m_posmap.push_back(item);
         m_endTime = m_curTime;
       }
     }
