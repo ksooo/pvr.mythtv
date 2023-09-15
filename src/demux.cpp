@@ -258,38 +258,60 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
   // Current PTS must be valid to estimate offset
   if (m_startpts == PTS_UNSET)
     return false;
-  // time is in MSEC not PTS_TIME_BASE. Rescale time to PTS (90Khz)
-  int64_t pts = (int64_t)(time * PTS_TIME_BASE / 1000);
+
+  StopThread(true);
 
   Myth::OS::CLockGuard guard(m_lock);
-  kodi::Log(ADDON_LOG_INFO, LOGTAG "%s: bw=%d desired=%" PRId64 " cur=%" PRId64 " end=%" PRId64, __FUNCTION__, backwards,
-          pts, m_startpts + m_curTime, m_startpts + m_endTime);
 
-  std::list<AV_POSMAP_ITEM>::const_iterator it;
+  // time is in MSEC not PTS_TIME_BASE. Rescale time to PTS (90Khz)
+  int64_t pts = (int64_t)(time * PTS_TIME_BASE / 1000);
   int64_t time_pts = pts - m_startpts;
+  const AV_POSMAP_ITEM * pos = nullptr;
 
-  for (it = m_posmap.begin(); it != m_posmap.end(); ++it)
+  kodi::Log(ADDON_LOG_INFO, LOGTAG "%s: bw=%d desired=%" PRId64 " beg=%" PRId64 " cur=%" PRId64 " end=%" PRId64, __FUNCTION__, backwards,
+          pts, m_startpts, m_startpts + m_curTime, m_startpts + m_endTime);
+
+  if (backwards)
   {
-    if (it->time_pts >= time_pts)
-      break;
+    std::list<AV_POSMAP_ITEM>::const_reverse_iterator it;
+    for (it = m_posmap.rbegin(); it != m_posmap.rend(); ++it)
+    {
+      if (it->time_pts <= time_pts)
+        break;
+    }
+    if (it != m_posmap.rend())
+      pos = &(*it);
   }
-  if ((backwards && it != m_posmap.begin()) ||
-          (it == m_posmap.end() && it != m_posmap.begin()))
-    --it;
+  else
+  {
+    std::list<AV_POSMAP_ITEM>::const_iterator it;
+    for (it = m_posmap.begin(); it != m_posmap.end(); ++it)
+    {
+      if (it->time_pts >= time_pts)
+        break;
+    }
+    if (it != m_posmap.end())
+      pos = &(*it);
+  }
 
-  if (it != m_posmap.end())
+  if (pos)
   {
     Flush();
-    m_AVContext->GoPosition(it->av_pos);
+    m_AVContext->GoPosition(pos->av_pos);
     m_AVContext->ResetPackets();
-    m_curTime = m_pinTime = it->time_pts;
-    m_pts = it->av_pts;
-
+    m_curTime = m_pinTime = pos->time_pts;
+    m_pts = pos->av_pts;
     *startpts = (double)m_pts * STREAM_TIME_BASE / PTS_TIME_BASE;
     kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, (m_startpts + m_curTime));
-    return true;
   }
-  return false;
+  else
+  {
+    kodi::Log(ADDON_LOG_WARNING, LOGTAG "seek aborted");
+  }
+
+  StartThread(true);
+
+  return (pos != nullptr);
 }
 
 int Demux::GetPlayingTime()
