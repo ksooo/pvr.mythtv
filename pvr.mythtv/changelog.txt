@@ -1,3 +1,6 @@
+v20.5.4
+- Internal demuxing: Handle PTS discontinuity between chained streams.
+
 v20.5.0
 - Bring back of the internal demuxing
   Enabling internal demuxing improves rendering fluidity, and could help to fix stuttering issues.
