@@ -2227,7 +2227,7 @@ bool PVRClientMythTV::OpenLiveStream(const kodi::addon::PVRChannel& channel)
     {
       if (m_demux)
         delete m_demux;
-      m_demux = new Demux(*this, m_liveStream);
+      m_demux = new Demux(*this, m_liveStream, m_liveStream->GetLiveTimeStart());
     }
     kodi::Log(ADDON_LOG_DEBUG, "%s: Done", __FUNCTION__);
     return true;
@@ -2242,7 +2242,7 @@ bool PVRClientMythTV::OpenLiveStream(const kodi::addon::PVRChannel& channel)
   if (m_dummyStream && m_dummyStream->IsValid())
   {
     if (CMythSettings::GetDemuxing())
-      m_demux = new Demux(*this, m_dummyStream);
+      m_demux = new Demux(*this, m_dummyStream, time(NULL));
     return true;
   }
   delete m_dummyStream;
@@ -2404,15 +2404,10 @@ PVR_ERROR PVRClientMythTV::GetStreamTimes(kodi::addon::PVRStreamTimes& streamTim
       /* DEMUXING */
       if (m_demux)
       {
-        begTs = m_liveStream->GetLiveTimeStart();
-        endTs = m_liveStream->GetChainedProgram(seq)->recording.endTs;
-        streamTimes.SetStartTime(begTs);
+        streamTimes.SetStartTime(m_demux->GetStartTime());
         streamTimes.SetPTSStart(m_demux->GetStartPTS());
         streamTimes.SetPTSBegin(streamTimes.GetPTSStart());
-        time_t now = time(NULL);
-        if (now < endTs)
-          endTs = now;
-        streamTimes.SetPTSEnd(streamTimes.GetPTSBegin() + (static_cast<int64_t>(difftime(endTs, begTs)) * STREAM_TIME_BASE));
+        streamTimes.SetPTSEnd(m_demux->GetEndPTS());
       }
       /* STREAMING */
       else

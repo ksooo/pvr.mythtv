@@ -25,7 +25,7 @@
 class ATTR_DLL_LOCAL Demux : public TSDemux::TSDemuxer, Myth::OS::CThread
 {
 public:
-  Demux(kodi::addon::CInstancePVRClient& handler, Myth::Stream *file);
+  Demux(kodi::addon::CInstancePVRClient& handler, Myth::Stream *file, time_t starttime);
   ~Demux();
 
   const unsigned char* ReadAV(uint64_t pos, size_t n);
@@ -39,12 +39,14 @@ public:
   bool SeekTime(double time, bool backwards, double* startpts);
 
   int GetPlayingTime();
+  time_t GetStartTime();
   int64_t GetStartPTS();
   int64_t GetEndPTS();
 
 private:
   kodi::addon::CInstancePVRClient& m_handler;
   Myth::Stream *m_file;
+  double m_starttime;
   uint16_t m_channel;
   FIFO<DEMUX_PACKET*> m_demuxPacketBuffer;
   Myth::OS::CMutex m_lock;
@@ -71,7 +73,6 @@ private:
   TSDemux::AVContext* m_AVContext;
   uint16_t m_mainStreamPID;     ///< PID of main stream
   uint64_t m_pts;               ///< presentation time of main stream
-  uint64_t m_startpts;          ///< start PTS of main stream
   int64_t m_pinTime;            ///< pinned relative position (90Khz)
   int64_t m_curTime;            ///< current relative position (90Khz)
   int64_t m_endTime;            ///< last relative marked position (90Khz))

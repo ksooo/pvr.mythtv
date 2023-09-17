@@ -12,7 +12,8 @@
 #include <climits>
 
 #define LOGTAG                  "[DEMUX] "
-#define POSMAP_PTS_INTERVAL     (PTS_TIME_BASE * 2)       // 2 secs
+#define POSMAP_PTS_INTERVAL     (PTS_TIME_BASE * 2)       // 2 units (90kHz)
+#define DISCONTINUITY_THRESHOLD (PTS_TIME_BASE * 3)       // 3 units (90kHz)
 #define READAV_TIMEOUT          10000                     // 10 secs
 
 void DemuxLog(int level, char *msg)
@@ -39,10 +40,11 @@ void DemuxLog(int level, char *msg)
   }
 }
 
-Demux::Demux(kodi::addon::CInstancePVRClient& handler, Myth::Stream *file)
+Demux::Demux(kodi::addon::CInstancePVRClient& handler, Myth::Stream *file, time_t starttime)
   : CThread()
   , m_handler(handler)
   , m_file(file)
+  , m_starttime((double)starttime)
   , m_channel(1)
   , m_demuxPacketBuffer(100)
   , m_av_buf_size(AV_BUFFER_SIZE)
@@ -53,7 +55,6 @@ Demux::Demux(kodi::addon::CInstancePVRClient& handler, Myth::Stream *file)
   , m_AVContext(NULL)
   , m_mainStreamPID(0xffff)
   , m_pts(PTS_UNSET)
-  , m_startpts(PTS_UNSET)
   , m_pinTime(0)
   , m_curTime(0)
   , m_endTime(0)
@@ -254,21 +255,24 @@ DEMUX_PACKET* Demux::Read()
 
 bool Demux::SeekTime(double time, bool backwards, double* startpts)
 {
-  // Current PTS must be valid to estimate offset
-  if (m_startpts == PTS_UNSET)
+  // positions map  must be filled to estimate offset
+  if (m_posmap.empty())
     return false;
 
   StopThread(true);
 
   Myth::OS::CLockGuard guard(m_lock);
 
+  // Current PTS must be valid to estimate offset
+  int64_t firstpts = m_posmap.front().av_pts;
+
   // time is in MSEC not PTS_TIME_BASE. Rescale time to PTS (90Khz)
   int64_t pts = (int64_t)(time * PTS_TIME_BASE / 1000);
-  int64_t time_pts = pts - m_startpts;
+  int64_t time_pts = pts - firstpts;
   const AV_POSMAP_ITEM * pos = nullptr;
 
   kodi::Log(ADDON_LOG_INFO, LOGTAG "%s: bw=%d desired=%" PRId64 " beg=%" PRId64 " cur=%" PRId64 " end=%" PRId64, __FUNCTION__, backwards,
-          pts, m_startpts, m_startpts + m_curTime, m_startpts + m_endTime);
+          pts, firstpts, firstpts + m_curTime, firstpts + m_endTime);
 
   if (backwards)
   {
@@ -305,7 +309,7 @@ bool Demux::SeekTime(double time, bool backwards, double* startpts)
     m_curTime = m_pinTime = pos->time_pts;
     m_pts = pos->av_pts;
     *startpts = (double)m_pts * STREAM_TIME_BASE / PTS_TIME_BASE;
-    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, (m_startpts + m_curTime));
+    kodi::Log(ADDON_LOG_INFO, LOGTAG "seek to %" PRId64, (firstpts + m_curTime));
   }
   else
   {
@@ -326,16 +330,26 @@ int Demux::GetPlayingTime()
   return (int)time_ms;
 }
 
+time_t Demux::GetStartTime()
+{
+  Myth::OS::CLockGuard guard(m_lock);
+  return (time_t)m_starttime;
+}
+
 int64_t Demux::GetStartPTS()
 {
   Myth::OS::CLockGuard guard(m_lock);
-  return (int64_t)((double)m_startpts * STREAM_TIME_BASE / PTS_TIME_BASE);
+  if (m_posmap.empty())
+    return PTS_UNSET;
+  return (int64_t)((double)(m_posmap.front().av_pts) * STREAM_TIME_BASE / PTS_TIME_BASE);
 }
 
 int64_t Demux::GetEndPTS()
 {
   Myth::OS::CLockGuard guard(m_lock);
-  return (int64_t)((double)(m_startpts + m_endTime) * STREAM_TIME_BASE / PTS_TIME_BASE);
+  if (m_posmap.empty())
+    return PTS_UNSET;
+  return (int64_t)((double)(m_posmap.back().av_pts) * STREAM_TIME_BASE / PTS_TIME_BASE);
 }
 
 bool Demux::get_stream_data(TSDemux::STREAM_PKT* pkt)
@@ -347,25 +361,38 @@ bool Demux::get_stream_data(TSDemux::STREAM_PKT* pkt)
   if (!es->GetStreamPacket(pkt))
     return false;
 
-  if (m_startpts == PTS_UNSET)
-  {
-    Myth::OS::CLockGuard guard(m_lock);
-    if (pkt->pid == m_mainStreamPID)
-      m_startpts = pkt->pts;
-    else
-      return false;
-  }
+  // start by mainstream frame
+  if (m_posmap.empty() && pkt->pid != m_mainStreamPID)
+    return false;
 
-  if (pkt->duration > PTS_TIME_BASE * 2)
+  // check for a valid duration
+  if (pkt->duration > POSMAP_PTS_INTERVAL)
   {
     pkt->duration = 0;
   }
   else if (pkt->pid == m_mainStreamPID)
   {
+    Myth::OS::CLockGuard guard(m_lock);
+
+    // no discontinuity is permitted to allow seeking in the stream, therefore
+    // it is necessary to manage this case which could arise when passing to the
+    // next chained stream.
+    // on discontinuity the posmap must be cleared and starttime must be reset
+    // to the current playing time.
+    if (!m_posmap.empty())
+    {
+      int64_t diffts = (pkt->pts > m_pts ? pkt->pts - m_pts : m_pts - pkt->pts);
+      if (diffts > DISCONTINUITY_THRESHOLD)
+      {
+        // reset posmap
+        kodi::Log(ADDON_LOG_WARNING, LOGTAG "need to reset posmap: %" PRId64 " -> %" PRId64, m_pts, pkt->pts);
+        reset_posmap();
+      }
+    }
+
     // Sync main PTS
     m_pts = pkt->pts;
 
-    Myth::OS::CLockGuard guard(m_lock);
     // Fill duration map for main stream
     m_curTime += pkt->duration;
     if (m_curTime >= m_pinTime)
@@ -390,8 +417,10 @@ void Demux::reset_posmap()
   Myth::OS::CLockGuard guard(m_lock);
   if (m_posmap.empty())
     return;
-  m_posmap.clear();
+  // adjust start time to current time
+  m_starttime += (double)m_curTime / PTS_TIME_BASE;
   m_pinTime = m_curTime = m_endTime = 0;
+  m_posmap.clear();
 }
 
 static inline int stream_identifier(int composition_id, int ancillary_id)
