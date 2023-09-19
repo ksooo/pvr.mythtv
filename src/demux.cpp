@@ -15,6 +15,7 @@
 #define POSMAP_PTS_INTERVAL     (PTS_TIME_BASE * 2)       // 2 units (90kHz)
 #define DISCONTINUITY_THRESHOLD (PTS_TIME_BASE * 3)       // 3 units (90kHz)
 #define READAV_TIMEOUT          10000                     // 10 secs
+#define FIFO_TIMEOUT_USEC       10000                     // 10 millisecs
 
 void DemuxLog(int level, char *msg)
 {
@@ -187,9 +188,7 @@ void* Demux::Process()
           if (update_pvr_stream(pkt.pid) && m_nosetup.empty())
             push_stream_change();
         }
-        DEMUX_PACKET* dxp = stream_pvr_data(&pkt);
-        if (dxp)
-          push_stream_data(dxp);
+        push_stream_data(stream_pvr_data(&pkt));
       }
     }
     if (m_AVContext->HasPIDPayload())
@@ -569,15 +568,10 @@ void Demux::push_stream_change()
 {
   if (!m_isChangePlaced)
   {
-    bool ret = false;
     DEMUX_PACKET* dxp  = m_handler.AllocateDemuxPacket(0);
     dxp->iStreamId    = DEMUX_SPECIALID_STREAMCHANGE;
 
-    while (!IsStopped() && !(ret = m_demuxPacketBuffer.push(dxp)))
-        usleep(100000);
-    if (!ret)
-      m_handler.FreeDemuxPacket(dxp);
-    else
+    if (push_stream_data(dxp))
     {
       m_isChangePlaced = true;
       kodi::Log(ADDON_LOG_DEBUG, LOGTAG "%s: done", __FUNCTION__);
@@ -611,14 +605,17 @@ DEMUX_PACKET* Demux::stream_pvr_data(TSDemux::STREAM_PKT* pkt)
   return dxp;
 }
 
-void Demux::push_stream_data(DEMUX_PACKET* dxp)
+bool Demux::push_stream_data(DEMUX_PACKET* dxp)
 {
   if (dxp)
   {
     bool ret = false;
+    unsigned c = 0;
     while (!IsStopped() && !(ret = m_demuxPacketBuffer.push(dxp)))
-        usleep(100000);
-    if (!ret)
-      m_handler.FreeDemuxPacket(dxp);
+      usleep((++c > 10 ? 10 * FIFO_TIMEOUT_USEC : FIFO_TIMEOUT_USEC));
+    if (ret)
+      return true;
+    m_handler.FreeDemuxPacket(dxp);
   }
+  return false;
 }

@@ -60,7 +60,7 @@ private:
   bool update_pvr_stream(uint16_t pid);
   void push_stream_change();
   DEMUX_PACKET* stream_pvr_data(TSDemux::STREAM_PKT* pkt);
-  void push_stream_data(DEMUX_PACKET* dxp);
+  bool push_stream_data(DEMUX_PACKET* dxp);
 
   // AV raw buffer
   size_t m_av_buf_size;         ///< size of av buffer
