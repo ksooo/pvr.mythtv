@@ -183,8 +183,8 @@ int MythProgramInfo::GetPropsBookmark() const
 
 std::string MythProgramInfo::UID() const
 {
-  char buf[48] = "";
-  sprintf(buf, "%u_%ld_%.3x",
+  char buf[48];
+  snprintf(buf, sizeof(buf), "%u_%ld_%.3x",
           (unsigned)m_proginfo->channel.chanId,
           (long)m_proginfo->recording.startTs,
           (unsigned)m_proginfo->recording.recordedId & 0xfff);

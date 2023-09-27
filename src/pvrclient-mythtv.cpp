@@ -641,7 +641,7 @@ PVR_ERROR PVRClientMythTV::GetEPGForChannel(int channelUid, time_t start, time_t
     }
     tag.SetEpisodePartNumber(EPG_TAG_INVALID_SERIES_EPISODE);
     tag.SetParentalRating(0);
-    tag.SetStarRating(std::stoi(it->second->stars));
+    tag.SetStarRating(static_cast<int>(it->second->stars * 10.0));
     tag.SetOriginalTitle("");
     tag.SetCast("");
     tag.SetDirector("");
@@ -2366,8 +2366,8 @@ PVR_ERROR PVRClientMythTV::GetSignalStatus(int channelUid, kodi::addon::PVRSigna
   if (!m_liveStream)
     return PVR_ERROR_REJECTED;
 
-  char buf[50];
-  sprintf(buf, "Myth Recorder %u", (unsigned)m_liveStream->GetCardId());
+  char buf[32];
+  snprintf(buf, sizeof(buf), "Myth Recorder %u", (unsigned)m_liveStream->GetCardId());
   signalStatus.SetAdapterName(buf);
   Myth::SignalStatusPtr signal = m_liveStream->GetSignal();
   if (signal)
