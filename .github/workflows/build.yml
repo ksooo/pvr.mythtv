@@ -11,14 +11,10 @@ jobs:
       matrix:
         include:
         - name: "Debian package test"
-          os: ubuntu-20.04
+          os: ubuntu-latest
           CC: gcc
           CXX: g++
           DEBIAN_BUILD: true
-        - os: ubuntu-latest
-          CC: clang
-          CXX: clang++
-        - os: macos-latest
     steps:
     - name: Install needed ubuntu depends
       env:
@@ -33,7 +29,7 @@ jobs:
         repository: xbmc/xbmc
         ref: master
         path: xbmc
-    - name: Checkout pvr.mythtv repo
+    - name: Checkout add-on repo
       uses: actions/checkout@v2
       with:
         path: ${{ env.app_id }}
