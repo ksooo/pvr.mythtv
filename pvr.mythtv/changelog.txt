@@ -1,3 +1,6 @@
+v21.0.0
+- Starting branch Omega
+
 v20.5.4
 - Internal demuxing: Handle PTS discontinuity between chained streams.
 
