@@ -1,6 +1,6 @@
 [![License: GPL-2.0-or-later](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](LICENSE.md)
-[![Build and run tests](https://github.com/janbar/pvr.mythtv/actions/workflows/build.yml/badge.svg?branch=Nexus)](https://github.com/janbar/pvr.mythtv/actions/workflows/build.yml)
-[![Build Status](https://jenkins.kodi.tv/view/Addons/job/janbar/job/pvr.mythtv/job/Nexus/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/janbar%2Fpvr.mythtv/branches/)
+[![Build and run tests](https://github.com/janbar/pvr.mythtv/actions/workflows/build.yml/badge.svg?branch=Omega)](https://github.com/janbar/pvr.mythtv/actions/workflows/build.yml)
+[![Build Status](https://jenkins.kodi.tv/view/Addons/job/janbar/job/pvr.mythtv/job/Omega/badge/icon)](https://jenkins.kodi.tv/blue/organizations/jenkins/janbar%2Fpvr.mythtv/branches/)
 
 # MythTV PVR
 MythTV PVR client addon for [Kodi](http://kodi.tv)
