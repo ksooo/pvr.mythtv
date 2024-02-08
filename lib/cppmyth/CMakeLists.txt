@@ -11,15 +11,11 @@ if (MSVC)
   OPTION (STATIC_CRT "Link the static CRT libraries" OFF)
 endif ()
 
-if (NOT MSVC)
-  OPTION (REQUIRE_CXX_98 "Require standard c++98" OFF)
-endif ()
-
 ###############################################################################
 # set lib version here
 set (PACKAGE_VERSION_MAJOR 2)
-set (PACKAGE_VERSION_MINOR 16)
-set (PACKAGE_VERSION_PATCH 4)
+set (PACKAGE_VERSION_MINOR 17)
+set (PACKAGE_VERSION_PATCH 0)
 
 set (PACKAGE_VERSION ${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH})
 set (PACKAGE_LIB_SOVERSION ${PACKAGE_VERSION_MAJOR})
@@ -55,23 +51,17 @@ if (NOT MSVC)
 
   include(CheckCXXCompilerFlag)
   CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-  if(NOT REQUIRE_CXX_98 AND COMPILER_SUPPORTS_CXX11)
+  if(COMPILER_SUPPORTS_CXX11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
     message(STATUS "Using standard c++11")
-  else()
-    CHECK_CXX_COMPILER_FLAG("-std=c++98" COMPILER_SUPPORTS_CXX98)
-    if(COMPILER_SUPPORTS_CXX98)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
-      message(STATUS "Using standard c++98")
-    endif()
-    include (CheckLibraryExists)
-    include (CheckAtomic)
-    if (HAS_BUILTIN_SYNC_ADD_AND_FETCH)
-      add_definitions ("-DHAS_BUILTIN_SYNC_ADD_AND_FETCH")
-    endif ()
-    if (HAS_BUILTIN_SYNC_SUB_AND_FETCH)
-      add_definitions ("-DHAS_BUILTIN_SYNC_SUB_AND_FETCH")
-    endif ()
+  endif()
+  include (CheckLibraryExists)
+  include (CheckAtomic)
+  if (HAS_BUILTIN_SYNC_ADD_AND_FETCH)
+    add_definitions ("-DHAS_BUILTIN_SYNC_ADD_AND_FETCH")
+  endif ()
+  if (HAS_BUILTIN_SYNC_SUB_AND_FETCH)
+    add_definitions ("-DHAS_BUILTIN_SYNC_SUB_AND_FETCH")
   endif ()
 endif ()
 
@@ -142,7 +132,8 @@ file (GLOB SRC_FILES
   src/*.cpp)
 
 file (GLOB OS_SRC_FILES
-  src/private/os/threads/threadpool.cpp)
+  src/private/os/threads/threadpool.cpp
+  src/private/os/threads/latch.cpp)
 
 if (MSVC)
   list (APPEND OS_SRC_FILES
