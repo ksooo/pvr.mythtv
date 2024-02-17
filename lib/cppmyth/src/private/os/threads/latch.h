@@ -23,8 +23,6 @@
 #include "os-threads.h"
 #include "atomic.h"
 
-#define latch_bucket_count 64
-
 #ifdef NSROOT
 namespace NSROOT {
 #endif
@@ -89,11 +87,12 @@ namespace OS
 
     void spin_lock()
     {
-      for (;;)
+      while (s_spin.increment() != 1)
       {
-        if (s_spin.load() == 0 && s_spin.increment() == 1)
-          break;
-        sched_yield();
+        do
+        {
+          sched_yield();
+        } while (s_spin.load() != 0);
       }
     }
     void spin_unlock() { s_spin.store(0); }
