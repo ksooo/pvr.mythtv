@@ -12,6 +12,7 @@
 #include "demux.h"
 #include "filestreaming.h"
 #include "taskhandler.h"
+#include "private/cppdef.h"
 #include "private/os/threads/mutex.h"
 
 #include <kodi/General.h>
@@ -65,18 +66,18 @@ PVRClientMythTV::PVRClientMythTV(const kodi::addon::IInstanceInfo& instance)
 
 PVRClientMythTV::~PVRClientMythTV()
 {
-  delete m_todo;
-  delete m_demux;
-  delete m_dummyStream;
-  delete m_liveStream;
-  delete m_recordingStream;
-  delete m_artworksManager;
-  delete m_scheduleManager;
-  delete m_eventHandler;
-  delete m_control;
-  delete m_recordingsLock;
-  delete m_channelsLock;
-  delete m_lock;
+  SAFE_DELETE(m_todo);
+  SAFE_DELETE(m_demux);
+  SAFE_DELETE(m_dummyStream);
+  SAFE_DELETE(m_liveStream);
+  SAFE_DELETE(m_recordingStream);
+  SAFE_DELETE(m_artworksManager);
+  SAFE_DELETE(m_scheduleManager);
+  SAFE_DELETE(m_eventHandler);
+  SAFE_DELETE(m_control);
+  SAFE_DELETE(m_recordingsLock);
+  SAFE_DELETE(m_channelsLock);
+  SAFE_DELETE(m_lock);
 }
 
 static void Log(int level, char *msg)
