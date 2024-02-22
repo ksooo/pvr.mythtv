@@ -77,7 +77,7 @@ PVRClientMythTV::~PVRClientMythTV()
   SAFE_DELETE(m_control);
   SAFE_DELETE(m_recordingsLock);
   SAFE_DELETE(m_channelsLock);
-  SAFE_DELETE(m_lock);
+  delete m_lock;
 }
 
 static void Log(int level, char *msg)
