@@ -15,8 +15,8 @@
 class MythScheduleHelper76 : public MythScheduleHelper75
 {
 public:
-  MythScheduleHelper76(MythScheduleManager *manager, Myth::Control *control)
-  : MythScheduleHelper75(manager, control) { }
+  explicit MythScheduleHelper76(MythScheduleManager *manager)
+  : MythScheduleHelper75(manager) { }
 
   virtual bool FillTimerEntryWithRule(MythTimerEntry& entry, const MythRecordingRuleNode& node) const;
   //virtual bool FillTimerEntry(MythTimerEntry& entry, const MythProgramInfo& recording) const;

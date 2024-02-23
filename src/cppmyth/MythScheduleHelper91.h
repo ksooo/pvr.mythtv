@@ -15,8 +15,8 @@
 class MythScheduleHelper91 : public MythScheduleHelper85
 {
 public:
-  MythScheduleHelper91(MythScheduleManager *manager, Myth::Control *control)
-  : MythScheduleHelper85(manager, control) { }
+  explicit MythScheduleHelper91(MythScheduleManager *manager)
+  : MythScheduleHelper85(manager) { }
 
   virtual MythRecordingRule NewFromTimer(const MythTimerEntry& entry, bool withTemplate);
 };
