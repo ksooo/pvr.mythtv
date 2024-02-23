@@ -152,28 +152,28 @@ MythScheduleManager::VersionHelperPtr MythScheduleManager::Setup()
   {
     if (m_protoVersion >= 91)
     {
-      m_versionHelper = VersionHelperPtr(new MythScheduleHelper91(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper91 and inherited functions");
+      return VersionHelperPtr(new MythScheduleHelper91(this));
     }
     else if (m_protoVersion >= 85)
     {
-      m_versionHelper = VersionHelperPtr(new MythScheduleHelper85(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper85 and inherited functions");
+      return VersionHelperPtr(new MythScheduleHelper85(this));
     }
     else if (m_protoVersion >= 76)
     {
-      m_versionHelper = VersionHelperPtr(new MythScheduleHelper76(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper76 and inherited functions");
+      return VersionHelperPtr(new MythScheduleHelper76(this));
     }
     else if (m_protoVersion >= 75)
     {
-      m_versionHelper = VersionHelperPtr(new MythScheduleHelper75(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper75 and inherited functions");
+      return VersionHelperPtr(new MythScheduleHelper75(this));
     }
     else
     {
-      m_versionHelper = VersionHelperPtr(new MythScheduleHelperNoHelper(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelperNoHelper");
+      return VersionHelperPtr(new MythScheduleHelperNoHelper(this));
     }
   }
   // owner of the lock, return a copy before releasing it
@@ -929,6 +929,7 @@ void MythScheduleManager::Update()
     SAFE_DELETE(m_rulesByIndex);
     SAFE_DELETE(m_rulesById);
     SAFE_DELETE(m_rules);
+    m_versionHelper = helper;
     m_rules = new_rules;
     m_rulesById = new_rulesById;
     m_rulesByIndex = new_rulesByIndex;
