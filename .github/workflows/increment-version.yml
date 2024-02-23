@@ -2,7 +2,7 @@ name: Increment version when languages are updated
 
 on:
   push:
-    branches: [ Matrix, Nexus, Omega ]
+    branches: [ master ]
     paths:
       - '**resource.language.**strings.po'
 
