@@ -16,8 +16,9 @@
 
 #include <kodi/General.h>
 
-MythScheduleHelperNoHelper::MythScheduleHelperNoHelper()
+MythScheduleHelperNoHelper::MythScheduleHelperNoHelper(MythScheduleManager *manager)
 : m_lock(new Myth::OS::CMutex)
+, m_manager(manager)
 , m_timerTypeListInit(false)
 , m_priorityListInit(false)
 , m_dupMethodListInit(false)
@@ -31,6 +32,8 @@ MythScheduleHelperNoHelper::MythScheduleHelperNoHelper()
 
 MythScheduleHelperNoHelper::~MythScheduleHelperNoHelper()
 {
+  m_lock->Lock();
+  m_manager = NULL;
   delete m_lock;
 }
 

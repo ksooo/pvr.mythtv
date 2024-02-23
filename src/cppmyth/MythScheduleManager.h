@@ -182,6 +182,8 @@ public:
   bool ToggleShowNotRecording();
   bool ShowNotRecording();
 
+  friend class MythScheduleHelperNoHelper;
+
   class VersionHelper
   {
   public:
@@ -208,8 +210,9 @@ private:
   Myth::Control *m_control;
 
   int m_protoVersion;
-  VersionHelper *m_versionHelper;
-  void Setup();
+  typedef MYTH_SHARED_PTR<VersionHelper> VersionHelperPtr;
+  VersionHelperPtr m_versionHelper;
+  VersionHelperPtr Setup();
 
   // The list of rule nodes
   typedef std::list<MythRecordingRuleNodePtr> NodeList;

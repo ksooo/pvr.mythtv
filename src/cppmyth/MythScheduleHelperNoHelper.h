@@ -20,7 +20,7 @@
 class MythScheduleHelperNoHelper : public MythScheduleManager::VersionHelper
 {
 public:
-  MythScheduleHelperNoHelper();
+  explicit MythScheduleHelperNoHelper(MythScheduleManager *m_manager);
   virtual ~MythScheduleHelperNoHelper();
 
   // Implements VersionHelper
@@ -54,6 +54,7 @@ public:
   virtual std::string GetRuleRecordingGroupName(int id) const;
 
 protected:
+  Myth::Control* GetControl() const { return (m_manager ? m_manager->m_control : NULL); }
   typedef std::map<int, std::pair<RuleExpiration, std::string> > RuleExpirationMap;
   // Following members aren't thread safe: SHOULD be called by a locked method
   virtual const MythTimerType::AttributeList& GetRulePriorityList() const;
@@ -63,6 +64,7 @@ protected:
   virtual const MythTimerType::AttributeList& GetRuleRecordingGroupList() const;
 
   mutable Myth::OS::CMutex *m_lock;
+  mutable MythScheduleManager *m_manager;
 
   mutable bool                            m_timerTypeListInit;
   mutable MythTimerTypeList               m_timerTypeList;

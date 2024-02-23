@@ -15,9 +15,8 @@
 class MythScheduleHelper75 : public MythScheduleHelperNoHelper
 {
 public:
-  MythScheduleHelper75(MythScheduleManager *manager, Myth::Control *control)
-  : m_manager(manager)
-  , m_control(control) { }
+  explicit MythScheduleHelper75(MythScheduleManager *manager)
+  : MythScheduleHelperNoHelper(manager) { }
 
   virtual MythTimerTypeList GetTimerTypes() const;
   virtual bool SameTimeslot(const MythRecordingRule& first, const MythRecordingRule& second) const;
@@ -38,7 +37,4 @@ protected:
   virtual const MythTimerType::AttributeList& GetRuleDupMethodList() const;
   virtual const RuleExpirationMap& GetRuleExpirationMap() const;
   virtual const MythTimerType::AttributeList& GetRuleRecordingGroupList() const;
-
-  MythScheduleManager *m_manager;
-  Myth::Control *m_control;
 };

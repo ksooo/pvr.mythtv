@@ -837,10 +837,10 @@ MythRecordingRule MythScheduleHelper75::NewFromTemplate(const MythEPGInfo& epgIn
   // Category override
   if (!epgInfo.IsNull())
   {
-    Myth::SettingPtr overTimeCategory = m_control->GetSetting("OverTimeCategory", false);
+    Myth::SettingPtr overTimeCategory = GetControl()->GetSetting("OverTimeCategory", false);
     if (overTimeCategory && (overTimeCategory->value == epgInfo.Category() || overTimeCategory->value == epgInfo.CategoryType()))
     {
-      Myth::SettingPtr categoryOverTime = m_control->GetSetting("CategoryOverTime", false);
+      Myth::SettingPtr categoryOverTime = GetControl()->GetSetting("CategoryOverTime", false);
       if (categoryOverTime && !categoryOverTime->value.empty())
       {
         int offset = atoi(categoryOverTime->value.c_str());
@@ -1383,11 +1383,11 @@ const MythScheduleHelperNoHelper::RuleExpirationMap& MythScheduleHelper75::GetRu
 
 const MythTimerType::AttributeList& MythScheduleHelper75::GetRuleRecordingGroupList() const
 {
-  if (!m_recGroupListInit && m_control)
+  if (!m_recGroupListInit && GetControl())
   {
     int count = 0, index = RECGROUP_DFLT_ID;
     m_recGroupListInit = true;
-    Myth::StringListPtr strl = m_control->GetRecGroupList();
+    Myth::StringListPtr strl = GetControl()->GetRecGroupList();
     // First add default group
     for (Myth::StringList::const_iterator it = strl->begin(); it != strl->end(); ++it)
     {

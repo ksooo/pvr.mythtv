@@ -130,18 +130,18 @@ MythScheduleManager::MythScheduleManager(const std::string& server, unsigned pro
 MythScheduleManager::~MythScheduleManager()
 {
   m_lock->Lock();
+  m_versionHelper.reset();
   SAFE_DELETE(m_recordingIndexByRuleId);
   SAFE_DELETE(m_recordings);
   SAFE_DELETE(m_templates);
   SAFE_DELETE(m_rulesByIndex);
   SAFE_DELETE(m_rulesById);
   SAFE_DELETE(m_rules);
-  SAFE_DELETE(m_versionHelper);
   SAFE_DELETE(m_control);
   delete m_lock;
 }
 
-void MythScheduleManager::Setup()
+MythScheduleManager::VersionHelperPtr MythScheduleManager::Setup()
 {
   Myth::OS::CLockGuard lock(*m_lock);
   int old = m_protoVersion;
@@ -150,33 +150,34 @@ void MythScheduleManager::Setup()
   // On new connection the protocol version could change
   if (m_protoVersion != old)
   {
-    SAFE_DELETE(m_versionHelper);
     if (m_protoVersion >= 91)
     {
-      m_versionHelper = new MythScheduleHelper91(this, m_control);
+      m_versionHelper = VersionHelperPtr(new MythScheduleHelper91(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper91 and inherited functions");
     }
     else if (m_protoVersion >= 85)
     {
-      m_versionHelper = new MythScheduleHelper85(this, m_control);
+      m_versionHelper = VersionHelperPtr(new MythScheduleHelper85(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper85 and inherited functions");
     }
     else if (m_protoVersion >= 76)
     {
-      m_versionHelper = new MythScheduleHelper76(this, m_control);
+      m_versionHelper = VersionHelperPtr(new MythScheduleHelper76(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper76 and inherited functions");
     }
     else if (m_protoVersion >= 75)
     {
-      m_versionHelper = new MythScheduleHelper75(this, m_control);
+      m_versionHelper = VersionHelperPtr(new MythScheduleHelper75(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelper75 and inherited functions");
     }
     else
     {
-      m_versionHelper = new MythScheduleHelperNoHelper();
+      m_versionHelper = VersionHelperPtr(new MythScheduleHelperNoHelper(this));
       kodi::Log(ADDON_LOG_DEBUG, "Using MythScheduleHelperNoHelper");
     }
   }
+  // owner of the lock, return a copy before releasing it
+  return m_versionHelper;
 }
 
 uint32_t MythScheduleManager::MakeIndex(const MythProgramInfo& recording)
@@ -827,7 +828,7 @@ void MythScheduleManager::CloseControl()
 void MythScheduleManager::Update()
 {
   // Setup VersionHelper for the new set
-  this->Setup();
+  VersionHelperPtr helper = this->Setup();
   // Allocate containers
   NodeList* new_rules = new NodeList;
   NodeById* new_rulesById = new NodeById;
@@ -868,7 +869,7 @@ void MythScheduleManager::Update()
       else
       {
         for (NodeList::iterator itm = new_rules->begin(); itm != new_rules->end(); ++itm)
-          if (!(*itm)->IsOverrideRule() && m_versionHelper->SameTimeslot((*it)->m_rule, (*itm)->m_rule))
+          if (!(*itm)->IsOverrideRule() && helper->SameTimeslot((*it)->m_rule, (*itm)->m_rule))
           {
             (*itm)->m_overrideRules.push_back((*it)->m_rule);
             (*it)->m_mainRule = (*itm)->m_rule;
