@@ -72,8 +72,10 @@ PVRClientMythTV::~PVRClientMythTV()
   SAFE_DELETE(m_liveStream);
   SAFE_DELETE(m_recordingStream);
   SAFE_DELETE(m_artworksManager);
-  SAFE_DELETE(m_scheduleManager);
+  // before closing the schedule manager, callbacks must be suspended,
+  // so the event handler should be stopped now
   SAFE_DELETE(m_eventHandler);
+  SAFE_DELETE(m_scheduleManager);
   SAFE_DELETE(m_control);
   SAFE_DELETE(m_recordingsLock);
   SAFE_DELETE(m_channelsLock);
