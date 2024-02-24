@@ -14,22 +14,22 @@ class MythChannel
 {
 public:
   MythChannel();
-  MythChannel(Myth::ChannelPtr channel);
+  MythChannel(const Myth::ChannelPtr& channel);
 
   bool IsNull() const;
-  Myth::ChannelPtr GetPtr() const;
+  Myth::ChannelPtr GetPtr() const { return m_channel; }
 
-  uint32_t ID() const;
-  std::string Name() const;
-  std::string Number() const;
-  std::string Callsign() const;
-  std::string Icon() const;
-  bool Visible() const;
-  bool IsRadio() const;
-  uint32_t SourceID() const;
-  uint32_t MultiplexID() const;
+  uint32_t ID() const { return m_channel->chanId; }
+  const std::string& Name() const { return m_channel->channelName; }
+  const std::string& Number() const { return m_channel->chanNum; }
+  const std::string& Callsign() const { return m_channel->callSign; }
+  const std::string& Icon() const { return m_channel->iconURL; }
+  bool Visible() const { return m_channel->visible; }
+  uint32_t SourceID() const { return m_channel->sourceId; }
+  uint32_t MultiplexID() const { return m_channel->mplexId; };
   unsigned NumberMajor() const { return m_numMajor; }
   unsigned NumberMinor() const { return m_numMinor; }
+  bool IsRadio() const;
 
 private:
   Myth::ChannelPtr m_channel;
