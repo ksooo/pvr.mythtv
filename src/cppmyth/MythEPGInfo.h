@@ -18,22 +18,22 @@ public:
   MythEPGInfo(unsigned chanid, time_t starttime, time_t endtime);
 
   bool IsNull() const;
-  Myth::ProgramPtr GetPtr() const;
+  Myth::ProgramPtr GetPtr() const { return m_epginfo; }
 
-  uint32_t ChannelID() const;
-  std::string ChannelName() const;
-  std::string Callsign() const;
-  uint32_t SourceID() const;
-  std::string Title() const;
-  std::string Subtitle() const;
-  std::string Description() const;
-  time_t StartTime() const;
-  time_t EndTime() const;
-  std::string ProgramID() const;
-  std::string SeriesID() const;
-  std::string Category() const;
-  std::string CategoryType() const;
-  std::string ChannelNumber() const;
+  uint32_t ChannelID() const { return m_epginfo->channel.chanId; }
+  const std::string& ChannelName() const { return m_epginfo->channel.channelName; }
+  const std::string& Callsign() const { return m_epginfo->channel.callSign; }
+  uint32_t SourceID() const { return m_epginfo->channel.sourceId; }
+  const std::string& Title() const { return m_epginfo->title; }
+  const std::string& Subtitle() const { return m_epginfo->subTitle; }
+  const std::string& Description() const { return m_epginfo->description; }
+  time_t StartTime() const { return m_epginfo->startTime; }
+  time_t EndTime() const { return m_epginfo->endTime; }
+  const std::string& ProgramID() const { return m_epginfo->programId; }
+  const std::string& SeriesID() const { return m_epginfo->seriesId; }
+  const std::string& Category() const { return m_epginfo->category; }
+  const std::string& CategoryType() const { return m_epginfo->catType; }
+  const std::string& ChannelNumber() const { return m_epginfo->channel.chanNum; }
 
   /**
    *

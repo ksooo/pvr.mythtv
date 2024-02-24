@@ -506,7 +506,7 @@ void PVRClientMythTV::HandleRecordingListChange(const Myth::EventMessage& msg)
       if (m_control->RefreshRecordedArtwork(*(msg.program)) && CMythSettings::GetExtraDebug())
         kodi::Log(ADDON_LOG_DEBUG, "%s: artwork found for %s", __FUNCTION__, prog.UID().c_str());
       // Reset to recalculate flags
-      prog.ResetProps();
+      prog.ResetFlags();
       // Keep props
       prog.CopyProps(it->second);
       // Keep original air date
