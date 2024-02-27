@@ -590,15 +590,16 @@ void PVRClientMythTV::RunHouseKeeping()
     m_eventHandler->Reset();
     m_control->CleanHanging();
   }
+
+  // Trigger recording update as needed
   if (m_recordingChangePinCount)
   {
     Myth::OS::CLockGuard lock(*m_recordingsLock);
+    m_recordingChangePinCount = 0;
     m_recordingsAmountChange = true; // Need count recording amount
     m_deletedRecAmountChange = true; // Need count of deleted amount
     lock.Unlock();
     kodi::addon::CInstancePVRClient::TriggerRecordingUpdate();
-    lock.Lock();
-    m_recordingChangePinCount = 0;
   }
 }
 
