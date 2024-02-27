@@ -24,14 +24,12 @@ enum
 
 MythProgramInfo::MythProgramInfo()
 : m_proginfo()
-, m_props()
 , m_cache()
 {
 }
 
 MythProgramInfo::MythProgramInfo(const Myth::ProgramPtr& proginfo)
 : m_proginfo(proginfo)
-, m_props(new Props())
 , m_cache(new Cache())
 {
 }
@@ -127,46 +125,6 @@ bool MythProgramInfo::HasFanart() const
   return false;
 }
 
-void MythProgramInfo::SetPropsVideoFrameRate(float fps)
-{
-  m_props->videoFrameRate = fps;
-}
-
-float MythProgramInfo::GetPropsVideoFrameRate() const
-{
-  return m_props->videoFrameRate;
-}
-
-void MythProgramInfo::SetPropsVideoAspec(float aspec)
-{
-  m_props->videoAspec = aspec;
-}
-
-float MythProgramInfo::GetPropsVideoAspec() const
-{
-  return m_props->videoAspec;
-}
-
-void MythProgramInfo::SetPropsSerie(bool flag)
-{
-  m_props->serie = flag;
-}
-
-bool MythProgramInfo::GetPropsSerie() const
-{
-  return m_props->serie;
-}
-
-void MythProgramInfo::SetPropsBookmark(int seconds)
-{
-  m_props->bookmark = seconds;
-}
-
-int MythProgramInfo::GetPropsBookmark() const
-{
-  return m_props->bookmark;
-}
-
 int32_t MythProgramInfo::Cache::get_flags(const MythProgramInfo& prog) const
 {
   m_flags |= FLAGS_INITIALIZED;
@@ -247,7 +205,7 @@ const std::string& MythProgramInfo::Cache::get_grouping_title(const MythProgramI
     default:
       buf.push_back(*it);
       trim = 0;
-    }    
+    }
   }
   m_groupingTitle.assign(buf.c_str(), buf.size() - trim);
   return m_groupingTitle;

@@ -505,10 +505,9 @@ void PVRClientMythTV::HandleRecordingListChange(const Myth::EventMessage& msg)
         kodi::Log(ADDON_LOG_DEBUG, "%s: Update recording: %s", __FUNCTION__, prog.UID().c_str());
       if (m_control->RefreshRecordedArtwork(*(msg.program)) && CMythSettings::GetExtraDebug())
         kodi::Log(ADDON_LOG_DEBUG, "%s: artwork found for %s", __FUNCTION__, prog.UID().c_str());
-      // Reset to recalculate flags
+      // share cache, but reset flags
+      prog.CopyCache(it->second);
       prog.ResetFlags();
-      // Keep props
-      prog.CopyProps(it->second);
       // Keep original air date
       prog.GetPtr()->airdate = it->second.Airdate();
       // Update recording
@@ -961,10 +960,10 @@ PVR_ERROR PVRClientMythTV::GetRecordings(kodi::addon::PVRRecordingsResultSet& re
         {
           if (found->second)
           {
-            found->second->second.SetPropsSerie(true);
+            found->second->second.SetSerie(true);
             found->second = NULL;
           }
-          it->second.SetPropsSerie(true);
+          it->second.SetSerie(true);
         }
         else
           titles.insert(std::make_pair(title, &(*it)));
@@ -989,7 +988,7 @@ PVR_ERROR PVRClientMythTV::GetRecordings(kodi::addon::PVRRecordingsResultSet& re
       if (CMythSettings::GetUseBackendBookmarks() && it->second.HasBookmark())
       {
         // put the known value or something differ from zero to show the right symbol on the GUI
-        int bookmark = it->second.GetPropsBookmark();
+        int bookmark = it->second.Bookmark();
         tag.SetLastPlayedPosition(bookmark > 0 ? bookmark : 1);
       }
 
@@ -1035,7 +1034,7 @@ PVR_ERROR PVRClientMythTV::GetRecordings(kodi::addon::PVRRecordingsResultSet& re
       std::string strDirectory;
       if (!CMythSettings::GetRootDefaultGroup() || it->second.RecordingGroup().compare("Default") != 0)
         strDirectory.append(it->second.RecordingGroup());
-      if (CMythSettings::GetGroupRecordings() == GROUP_RECORDINGS_ALWAYS || (CMythSettings::GetGroupRecordings() == GROUP_RECORDINGS_ONLY_FOR_SERIES && it->second.GetPropsSerie()))
+      if (CMythSettings::GetGroupRecordings() == GROUP_RECORDINGS_ALWAYS || (CMythSettings::GetGroupRecordings() == GROUP_RECORDINGS_ONLY_FOR_SERIES && it->second.Serie()))
         strDirectory.append("/").append(it->second.GroupingTitle());
       tag.SetDirectory(strDirectory);
 
@@ -1075,7 +1074,7 @@ PVR_ERROR PVRClientMythTV::GetRecordings(kodi::addon::PVRRecordingsResultSet& re
       tag.SetPlotOutline("");
       tag.SetSizeInBytes(it->second.FileSize());
       unsigned int flags = PVR_RECORDING_FLAG_UNDEFINED;
-      if (it->second.GetPropsSerie())
+      if (it->second.Serie())
         flags |= PVR_RECORDING_FLAG_IS_SERIES;
       tag.SetFlags(flags);
 
@@ -1198,7 +1197,7 @@ PVR_ERROR PVRClientMythTV::GetDeletedRecordings(kodi::addon::PVRRecordingsResult
       tag.SetPlotOutline("");
       tag.SetSizeInBytes(it->second.FileSize());
       unsigned int flags = PVR_RECORDING_FLAG_UNDEFINED;
-      if (it->second.GetPropsSerie())
+      if (it->second.Serie())
         flags |= PVR_RECORDING_FLAG_IS_SERIES;
       tag.SetFlags(flags);
 
@@ -1224,8 +1223,8 @@ void PVRClientMythTV::ForceUpdateRecording(ProgramInfoMap::iterator it)
     MythProgramInfo prog(m_control->GetRecorded(it->second.ChannelID(), it->second.RecordingStartTime()));
     if (!prog.IsNull())
     {
-      // Copy props
-      prog.CopyProps(it->second);
+      // share cache
+      prog.CopyCache(it->second);
       // Update recording
       it->second = prog;
       ++m_recordingChangePinCount;
@@ -1411,7 +1410,7 @@ PVR_ERROR PVRClientMythTV::SetRecordingLastPlayedPosition(const kodi::addon::PVR
       // Write the bookmark
       if (m_control->SetSavedBookmark(*prog, 2, duration))
       {
-        it->second.SetPropsBookmark(lastplayedposition);
+        it->second.SetBookmark(lastplayedposition);
         kodi::Log(ADDON_LOG_INFO, "%s: Setting Bookmark successful: %d", __FUNCTION__, lastplayedposition);
         return PVR_ERROR_NO_ERROR;
       }
@@ -1435,7 +1434,7 @@ PVR_ERROR PVRClientMythTV::GetRecordingLastPlayedPosition(const kodi::addon::PVR
     if (it->second.HasBookmark())
     {
       // return the known value from properties
-      position = it->second.GetPropsBookmark();
+      position = it->second.Bookmark();
       if (position > 0)
       {
         kodi::Log(ADDON_LOG_DEBUG, "%s: %d", __FUNCTION__, position);
@@ -1449,7 +1448,7 @@ PVR_ERROR PVRClientMythTV::GetRecordingLastPlayedPosition(const kodi::addon::PVR
         if (duration > 0)
         {
           position = (int)(duration / 1000);
-          it->second.SetPropsBookmark(position);
+          it->second.SetBookmark(position);
           kodi::Log(ADDON_LOG_INFO, "%s: Fetching from backend: %d", __FUNCTION__, position);
           return PVR_ERROR_NO_ERROR;
         }
@@ -1492,7 +1491,7 @@ PVR_ERROR PVRClientMythTV::GetRecordingEdl(const kodi::addon::PVRRecording& reco
   {
     unit = 0; // marks are based on framecount
     // Check required props else return
-    rate = prog.GetPropsVideoFrameRate();
+    rate = prog.VideoFrameRate();
     kodi::Log(ADDON_LOG_DEBUG, "%s: AV props: Frame Rate = %.3f", __FUNCTION__, rate);
     if (rate <= 0)
       return PVR_ERROR_NO_ERROR;
@@ -2833,8 +2832,8 @@ PVR_ERROR PVRClientMythTV::CallRecordingMenuHook(const kodi::addon::PVRMenuhook&
     items[10].append("[/COLOR]");
 
     items[11].append("FrameRate : [COLOR white]");
-    if (pinfo.GetPropsVideoFrameRate() > 0.0)
-      items[11].append(std::to_string(pinfo.GetPropsVideoFrameRate()));
+    if (pinfo.VideoFrameRate() > 0.0)
+      items[11].append(std::to_string(pinfo.VideoFrameRate()));
     items[11].append("[/COLOR]");
 
     kodi::gui::dialogs::Select::Show(item.GetTitle(), items);
@@ -2941,10 +2940,10 @@ void PVRClientMythTV::FillRecordingAVInfo(MythProgramInfo& programInfo, Myth::St
         default:
           fps = (float)(mInfo.stream_info.fps_rate) / mInfo.stream_info.fps_scale;
       }
-      programInfo.SetPropsVideoFrameRate(fps);
+      programInfo.SetVideoFrameRate(fps);
     }
     // Set video aspec
-    programInfo.SetPropsVideoAspec(mInfo.stream_info.aspect);
+    programInfo.SetVideoAspec(mInfo.stream_info.aspect);
   }
 }
 
