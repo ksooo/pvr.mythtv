@@ -1385,7 +1385,7 @@ const MythTimerType::AttributeList& MythScheduleHelper75::GetRuleRecordingGroupL
 {
   if (!m_recGroupListInit && GetControl())
   {
-    int count = 0, index = RECGROUP_DFLT_ID;
+    int index = RECGROUP_DFLT_ID;
     m_recGroupListInit = true;
     Myth::StringListPtr strl = GetControl()->GetRecGroupList();
     // First add default group
@@ -1394,7 +1394,6 @@ const MythTimerType::AttributeList& MythScheduleHelper75::GetRuleRecordingGroupL
       if (*it == RECGROUP_DFLT_NAME)
       {
         m_recGroupList.emplace_back(index++, RECGROUP_DFLT_NAME);
-        ++count;
       }
     }
     // Then others
@@ -1402,13 +1401,7 @@ const MythTimerType::AttributeList& MythScheduleHelper75::GetRuleRecordingGroupL
     {
       if (*it != RECGROUP_DFLT_NAME)
       {
-        if (count == PVR_ADDON_TIMERTYPE_VALUES_ARRAY_SIZE)
-        {
-          kodi::Log(ADDON_LOG_INFO, "75::%s: List overflow (%d): %u remaining value(s) are not loaded", __FUNCTION__, count, (unsigned)(strl->size() - count));
-          break;
-        }
         m_recGroupList.emplace_back(index++, *it);
-        ++count;
       }
     }
   }

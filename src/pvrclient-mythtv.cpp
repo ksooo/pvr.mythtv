@@ -1552,13 +1552,10 @@ PVR_ERROR PVRClientMythTV::GetRecordingEdl(const kodi::addon::PVRRecording& reco
   }
 
   // Processing marks
-  int index = 0;
   Myth::MarkList::const_iterator it;
   Myth::MarkPtr startPtr;
   for (it = skpList.begin(); it != skpList.end(); ++it)
   {
-    if (index >= PVR_ADDON_EDL_LENGTH)
-      break;
     switch ((*it)->markType)
     {
       case Myth::MARK_COMM_START:
@@ -1587,7 +1584,6 @@ PVR_ERROR PVRClientMythTV::GetRecordingEdl(const kodi::addon::PVRRecording& reco
             kodi::Log(ADDON_LOG_DEBUG, "%s: COMBREAK %9.3f - %9.3f", __FUNCTION__, s, e);
           }
           edl.emplace_back(entry);
-          index++;
         }
         startPtr.reset();
         break;
@@ -1601,7 +1597,6 @@ PVR_ERROR PVRClientMythTV::GetRecordingEdl(const kodi::addon::PVRRecording& reco
           entry.SetEnd((int64_t)(e * 1000.0));
           entry.SetType(PVR_EDL_TYPE_CUT);
           edl.emplace_back(entry);
-          index++;
           if (CMythSettings::GetExtraDebug())
             kodi::Log(ADDON_LOG_DEBUG, "%s: CUT %9.3f - %9.3f", __FUNCTION__, s, e);
         }
